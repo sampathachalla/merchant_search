@@ -1,0 +1,77 @@
+.main_body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90px;
+    width: 100%;
+    background-color: black;
+}
+.navigation{
+    width: 700px;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    display: flex;
+    align-items:center;
+    border-radius: 10px;
+
+}
+.navigation ul
+{
+    display: flex;
+    width: 350px;
+
+}
+.navigation ul li
+{
+    position: relative;
+    list-style: none;
+    width: 70px;
+    height: 70px;
+    z-index: 1;
+}
+.navigation ul li a
+{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+}
+.navigation ul li a .icon
+{
+    position: relative;
+    display: block;
+    line-height: 75px;
+    font-size: 20px;
+    text-align: center;
+    transition: 0.5s;
+    color:white;
+}
+.navigation ul li:hover a .icon
+{
+    transform: translateY(-35px);
+
+}
+.navigation ul li a .text
+{
+    position: absolute;
+    color: white;
+    font-weight: 400;
+    font-size: 1.4em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    opacity: 0;
+    transform: translateY(20px);
+}
+.navigation ul li:hover a .text
+{
+    opacity: 1;
+    transform: translateY(10px);
+}
+
+

@@ -7,9 +7,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   
 </head>
 <body>
   <app-root></app-root>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <script>
+    let curs=document.querySelector(".cursor");
+    document.addEventListener("mouseover",(e)=> {
+        let x=e.pageX;
+        let y=e.pageY;
+        curs.style.left=x-175+"px";
+        curs.style.top=(y-175)+"px";
+        curs.style.opacity="1"
+    } )
+</script>
 </body>
 </html>
