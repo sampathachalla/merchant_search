@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Route } from '@angular/router';
-import { RouterModule, Routes} from '@angular/router';
+
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -26,7 +29,8 @@ const routes: Routes=[
     HeaderComponent
   ],
   imports: [
-    BrowserModule,RouterModule.forRoot(routes)
+    BrowserModule,RouterModule.forRoot(routes, { useHash: true }),
+    HttpClientModule, FormsModule, ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

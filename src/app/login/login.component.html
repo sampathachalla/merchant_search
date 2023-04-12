@@ -5,12 +5,12 @@
         <form action="">
             <h2>Sign in</h2>
             <div class="input_box1">
-                <input type="text" name="" id="" required="required">
+                <input type="text" name="user_id" id="user_id" required="required" [(ngModel)] = "loginModel.user_id" [ngModelOptions]="{standalone: true}">
                 <span>Username</span>
                 <i></i>
             </div>
             <div class="input_box2">
-                <input type="text" name="" id="" required="required">
+                <input type="password" name="user_password" id="user_password" required="required" [(ngModel)] = "loginModel.user_password" [ngModelOptions]="{standalone: true}">
                 <span>Password</span>
                 <i></i>
             </div>
@@ -18,7 +18,7 @@
                 <a href="#">Forgot Password</a>
                 <a href="#">Signup</a>
             </div>
-            <input type="submit" value="Login">
+            <input type="submit" value="Login" (click)="adminLogin()">
         </form>
     </div>
 </div>
