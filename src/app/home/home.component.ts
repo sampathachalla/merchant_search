@@ -6,5 +6,25 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  
+
+  //hiding info box
+  
+  visible4:boolean = false
+  visible5:boolean = false
+  
+
+
+  //onclick toggling both
+  
+  onclick4()
+  {
+    this.visible4 = !this.visible4
+  }
+  onclick5()
+  {
+    this.visible5 = !this.visible5
+  }
+  
 
 }
