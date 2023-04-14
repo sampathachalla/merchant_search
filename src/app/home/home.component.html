@@ -1,4 +1,4 @@
-<app-header></app-header>
+<!--<app-header></app-header>-->
 
 <section class="homie">
     <div class="main">
@@ -84,16 +84,42 @@
                           </div>
                     </div>
                     <div class="col4">
-                        <button (click)="onclick4()" type="button"><div class="select-btn"> 
+                        <!--<button (click)="onclick4()" type="button"><div class="select-btn"> 
                             <span class="btn-text">Services</span>
                             <span class="material-symbols-outlined" id="arrow-dwn">expand_more</span>
-                        </div></button>
+                        </div></button>-->
+                        <div class="drop_menu">
+                            <button class="demo">
+                                <span class="btn-text">Services</span>
+                                <span class="material-symbols-outlined" id="arrow-dwn">expand_more</span>
+                            </button>
+                            <ul>
+                                <li><a href="#">Takeaway</a></li>
+                                <li><a href="#">Dine-in</a></li>
+                                <li><a href="#">Delivery</a></li>
+                                <li><a href="#">Buffet</a></li>
+                              </ul>
+                          </div>
                     </div>
                     <div class="col5">
-                        <button (click)="onclick5()" type="button"><div class="select-btn"> 
+                        <!--<button (click)="onclick5()" type="button"><div class="select-btn"> 
                             <span class="btn-text">Cusines</span>
                             <span class="material-symbols-outlined" id="arrow-dwn">expand_more</span>
-                        </div></button>
+                        </div></button>-->
+                        <div class="drop_menu">
+                            <button class="demo">
+                                <span class="btn-text">Cusines</span>
+                                <span class="material-symbols-outlined" id="arrow-dwn">expand_more</span>
+                            </button>
+                            <ul class="drop_cusines">
+                                <li><a href="#">South Indian</a></li>
+                                <li><a href="#">North Indian</a></li>
+                                <li><a href="#">Chinese</a></li>
+                                <li><a href="#">Italian</a></li>
+                                <li><a href="#">Arbian</a></li>
+                                <li><a href="#">Desserts</a></li>
+                              </ul>
+                          </div>
                     </div>
                     <div class="col6">
                         <!--<button (click)="onclick6()" type="button"><div class="select-btn"> 
