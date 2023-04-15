@@ -71,15 +71,11 @@ export class HomeComponent  {
 
 
   //onclick toggling both
-  
-  /*onclick4()
+  visible1:boolean = false
+  sigin_click()
   {
-    this.visible4 = !this.visible4
+    this.visible1 = !this.visible1
   }
-  onclick5()
-  {
-    this.visible5 = !this.visible5
-  }*/
   
 
 }
