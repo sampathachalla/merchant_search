@@ -18,8 +18,9 @@
                                     <option value="" >vskp</option>
                                     <option value="" >hyd</option>
                                 </select>
-                                <input type="search" placeholder="Search">
-                                <button type="submit">
+                                <input type="search" placeholder="Search" id="sname"  [(ngModel)] = "resultModel.sname" [ngModelOptions]="{standalone: true}">
+                                
+                                <button type="submit"  (click)="merchantSearch()">
                                     <span class="material-symbols-outlined">search</span>
                                 </button>
                             </form>
@@ -146,12 +147,12 @@
                 </div>
                 
                 
-                <ng-container *ngIf="visible4">
+                <!--<ng-container *ngIf="visible4">
                     <div class="menu_box4"></div>
                 </ng-container>
                 <ng-container *ngIf="visible5">
                     <div class="menu_box5"></div>
-                </ng-container>
+                </ng-container>-->
                 
                 <div *ngFor="let menuItem of demo; let i=index"  style="display: inline-flex;">
                     <div class="result_box1">

@@ -4,5 +4,5 @@ export class ResultModel{
     m_cusines: any;
     m_distance: string='';
     m_rating: string=''; 
-    
+    "sname":"";
 }
