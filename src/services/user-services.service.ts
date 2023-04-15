@@ -22,7 +22,20 @@ export class UserServicesService {
         })
       );
   }
+  
+private endpoint_menuSearch="/customer/home_search"
+menuSearch(pL:any) {
+
+  return this.http
+    .post(`${this.baseUrl + this.endpoint_menuSearch}`,pL)
+      .pipe(
+        map((res) => {
+          return res;
+        })
+      );
+  }
 
 }
+
 
 

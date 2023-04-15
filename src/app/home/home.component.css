@@ -1,6 +1,6 @@
 .homie{
     background-color: white;
-    min-height: 90vh;
+    min-height: 100vh;
 }
 .head{
     background-color: #00203fff;
@@ -11,18 +11,17 @@
 .mainbox{
     position: relative;
     display: flex;
+   
 }
 .left{
     
     width: 70%;
-    height: 90vh;
-    
+    height: 100vh;
 }
 .right{
     
     width: 30%;
-    
-    height: 90vh;
+    height: 100vh;
 }
 .search{
     width: 100%;
@@ -32,9 +31,9 @@
     justify-content: center;
     
 }
-.search_right{
-    width: 100%;
-    height: 25vh;
+.web_logo{
+    width: 10vw;
+    height: 15vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,7 +46,10 @@
     height: 10vh;
     display: flex;
     align-items:flex-start;
-    justify-content: center;
+    justify-content:center;
+    background-color: transparent;
+    position: relative;
+    top: -3vh;
 }
 .filters .col1{
     height: 80%;
@@ -274,44 +276,57 @@ button{
 /*Filters css ends here*/
 
 /*Result box css starts here*/
+
 .display{
-    position: relative;
-    height: 65vh;
+
+    height: 75vh;
     width: 100%;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
+    position: relative;
+    top: -4vh; 
     
 }
 .results{
     position: relative;
-    height: 65vh;
+    height: 55vh;
     width: 100%;
     display: flex;
-    justify-content: center;
-    align-items:center;
+    align-items: center;
+   
     
 }
 
 .result_box1 {
     height: 50vh;
-    width: 40%;
-    margin-right: 4%;
+    width: 20vw;
     border-radius: 5%;
     border: 1px solid rgb(207, 207, 207);
     box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
     padding: 1%;
+    margin-right: 2%;
+    margin-left: 2%;
 }
 .result_box2 {
     height: 50vh;
-    width: 40%;
+    width: 30%;
     border-radius: 5%;
     border: 1px solid rgb(207, 207, 207);
     box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
     padding: 1%;
 }
+.result_box3 {
+    height: 50vh;
+    width: 30%;
+    border-radius: 5%;
+    border: 1px solid rgb(207, 207, 207);
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    padding: 1%;
+    margin-left: 2%;
+}
 .r1{
     width: 100%;
-    height: 75%;
+    height: 60%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -326,7 +341,15 @@ button{
 }
 .r2{
     width: 100%;
-    height: 25%;
+    height: 30%;
+}
+.r3{
+    height: 10%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 1.2vw;
 }
 
 .r2_box1{
@@ -414,12 +437,11 @@ button{
 
 /*Search bar css starts here*/
 .search_container{
-    width: 90%;
-    height: 90%;
-    
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content:left;
 
 
 }
@@ -431,7 +453,7 @@ button{
 }
 
 .search_bar{
-    width: 50vw;
+    width: 52vw;
     height: 8vh;
     background-color: #F0F0F0;
     box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
@@ -479,7 +501,84 @@ button{
 }
 /* search bar css ends here*/
 
+/*user box css starts here*/
+.right_box1{
+    height: 20vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    
+}
+.user_box{
+    height: 90%;
+    width: 90%;
+    display: flex;
+    align-items:center;
+    justify-content:flex-start;
+    
+}
+.login_box{
+    height: 45%;
+    width: 45%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+.login_box span{
+    color: #E94B3cff;
+    font-size: 1.5vw;
+    align-items: center;
+    
+    
+}
+.login_box a{
+    
+    color: #00203fff;
+    font-size: 1.5vw;
+    font-weight: 500;
+    transition: all .50s ease;
+    padding: 5px 0;
+    margin: 0px 30px;
+}
+.login_box a:hover{
+    color: #E94B3cff;
+}
+/*
+.sub_head3{
+    height: 100%;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.user{
+    display: flex;
+    align-items: center;
 
+}
+.user span{
+    color: #E94B3cff;
+    font-size: 28px;
+    margin-right: 7px;
+}
 
+.main{
+    display: flex;
+    align-items: center;
+}
+.main a{
+    margin-right: 25px;
+    margin-left: 10px;
+    color: #00203fff;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all .50s ease;
+}
+.main a:hover{
+    color: #E94B3cff;
+}
+*/
+/*user box css ends here*/
 
