@@ -71,8 +71,8 @@ export class HomeComponent  {
 
 
   //onclick toggling both
-  visible1:boolean = false
-  sigin_click()
+  visible1:boolean = true;
+  display_click()
   {
     this.visible1 = !this.visible1
   }
