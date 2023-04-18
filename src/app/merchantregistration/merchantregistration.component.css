@@ -1,0 +1,19 @@
+.container{
+    background-color: aqua;
+    min-width: 90vw;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mRegister_form{
+    background-color: white;
+    min-height: 88vh;
+    min-width: 88vw;
+    padding: 2vw;
+}
+input{
+    height: 6vh;
+    width: 20vw;
+    margin-left: 10vw;
+}

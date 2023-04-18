@@ -8,9 +8,9 @@ import { UserServicesService } from 'src/services/user-services.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent  {
-  
-  
+export class HomeComponent {
+
+
   //hiding info box
   /*constructor(public menuService:UserServicesService)
   {
@@ -21,62 +21,66 @@ export class HomeComponent  {
   demo:any;
   ngOnInit(){
     /*throw new Error('Method not implemented.');*/
-   /* this.demo=new ResultModel();
-    var payLoad={
-      "search":""
-    }
-    this.menuService.menuSearch(payLoad).subscribe((resp:any) =>{
-      console.log(resp);
-      this.demo=resp;
-    })
+  /* this.demo=new ResultModel();
+   var payLoad={
+     "search":""
+   }
+   this.menuService.menuSearch(payLoad).subscribe((resp:any) =>{
+     console.log(resp);
+     this.demo=resp;
+   })
 
-  }*/
+ }*/
 
   //my code for search api integration
-  
-  constructor(private router: Router,private userServicesService:UserServicesService)
-  {
-    this.resultModel=new ResultModel
+
+  constructor(private router: Router, private userServicesService: UserServicesService) {
+    this.resultModel = new ResultModel
   }
-  ngOnInit():void{
+
+  ngOnInit(): void {
 
   }
-  resultModel:any;
-  tokenJson:any;
-  demo:any;
-  merchantSearch(){
+
+
+  resultModel: any;
+  tokenJson: any;
+  demo: any;
+  merchantSearch() {
     console.log(this.resultModel);
-    let payloadMenu={
-      "sname":this.resultModel.sname
+    let payloadMenu = {
+      "sname": this.resultModel.sname
     }
 
     this.userServicesService.menuSearch(payloadMenu).subscribe((restResp: any) => {
-      console.log('rest resp:',restResp)
-      if(restResp.statusCode == 200 && restResp.message == "success"){
+      console.log('rest resp:', restResp)
+      if (restResp.statusCode == 200 && restResp.message == "success") {
         console.log(restResp.info)
-        console.log("done")
-        this.demo=restResp.info
-        
+        this.demo = restResp.info
+
       }
-      else{
+      else {
         alert(JSON.stringify(restResp));
       }
     },
-    error => {
-      if (error.error.message = "Unauthorized") {
-        console.log("Unauthorized: " + error.error.message);
-      }
-  });
+      error => {
+        if (error.error.message = "Unauthorized") {
+          console.log("Unauthorized: " + error.error.message);
+        }
+      });
   }
 
 
   //onclick toggling both
-  visible1:boolean = true;
-  display_click()
-  {
+  visible1: boolean = true;
+  display_click() {
     this.visible1 = !this.visible1
   }
-  
-  
+
+  goToMerchantDetails(merchantObject:any){
+    this.router.navigate(['/display'+"/"+merchantObject.M_ID]);
+  }
+
+
 
 }

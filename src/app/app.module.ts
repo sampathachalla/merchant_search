@@ -22,7 +22,7 @@ const routes: Routes=[
   { path: '',redirectTo:'default',pathMatch:'full'},
   { path: 'login',component:LoginComponent},
   { path: 'home',component:HomeComponent},
-  { path:'display',component:DetailsComponent},
+  { path:'display/:merchantID',component:DetailsComponent},
   { path:'default',component:MerchantsearchComponent},
   { path:'merchant-register',component:MerchantregistrationComponent},
   { path: 'merchant-header',component:MerchantHeaderComponent},
