@@ -1,33 +1,33 @@
 <app-merchant-header></app-merchant-header>
 <div class="container">
     <form action="" method="post" class="mRegister_form" target="_blank">
-        <input type="text" placeholder="Restaurant Name" id="Rname" required>
-        <input type="text" placeholder="Restaurant Area" id="Rarea" required>
+        <input type="text" placeholder="Restaurant Name" id="m_name" [(ngModel)] = "registerModel.m_name" [ngModelOptions]="{standalone: true}">
+        <input type="text" placeholder="Restaurant Area" id="m_area" [(ngModel)] = "registerModel.m_area" [ngModelOptions]="{standalone: true}">
         <br><br>
-        <input type="text" placeholder="Restaurant Categories " id="Rcategories" required>
-        <input type="text" placeholder="Restaurant Street" id="Rstreet" required>
+        <input type="text" placeholder="Restaurant Categories " id="m_categories" [(ngModel)] = "registerModel.m_categories" [ngModelOptions]="{standalone: true}">
+        <input type="text" placeholder="Restaurant Street" id="m_street" [(ngModel)] = "registerModel.m_street" [ngModelOptions]="{standalone: true}">
         <br><br>
-        <input type="text" placeholder="Restaurant Cusines " id="Rcusines" required>
-        <input type="text" placeholder="Restaurant City" id="Rcity" required>
+        <input type="text" placeholder="Restaurant Cusines " id="m_cusines" [(ngModel)] = "registerModel.m_cusines" [ngModelOptions]="{standalone: true}">
+        <input type="text" placeholder="Restaurant City" id="m_city" [(ngModel)] = "registerModel.m_city" [ngModelOptions]="{standalone: true}">
         <br><br>
-        <input type="text" placeholder="Restaurant Services" id="Rservices" required>
-        <input type="text" placeholder="Restaurant Pincode" id="Rpincode" required>
+        <input type="text" placeholder="Restaurant Services" id="m_services" [(ngModel)] = "registerModel.m_services" [ngModelOptions]="{standalone: true}">
+        <input type="text" placeholder="Restaurant Pincode" id="m_pincode" [(ngModel)] = "registerModel.m_pincode" [ngModelOptions]="{standalone: true}">
         <br><br>
-        <input type="text" placeholder="Restaurant Open Time" id="Rotime" required>
-        <input type="text" placeholder="Restaurant Latitude" id="Rlatitude" required>
+        <input type="text" placeholder="Restaurant Open Time" id="m_open_time" [(ngModel)] = "registerModel.m_open_time" [ngModelOptions]="{standalone: true}">
+        <input type="text" placeholder="Restaurant Latitude" id="m_latitude" [(ngModel)] = "registerModel.m_latitude" [ngModelOptions]="{standalone: true}">
         <br><br>
-        <input type="text" placeholder="Restaurant Close Time" id="Rctime" required>
-        <input type="text" placeholder="Restaurant Longitude" id="Rlongitude" required>
+        <input type="text" placeholder="Restaurant Close Time" id="m_close_time" [(ngModel)] = "registerModel.m_close_time" [ngModelOptions]="{standalone: true}">
+        <input type="text" placeholder="Restaurant Longitude" id="m_longitude" [(ngModel)] = "registerModel.m_longitude" [ngModelOptions]="{standalone: true}">
         <br><br>
-        <input type="text" placeholder="Restaurant Starting Year " id="Ryear" required>
-        <input type="text" placeholder="Restaurant minimum price " id="Rmin" required>
+        <input type="text" placeholder="Restaurant Starting Year " id="m_experience" [(ngModel)] = "registerModel.m_experience" [ngModelOptions]="{standalone: true}">
+        <input type="text" placeholder="Restaurant minimum price " id="m_min_price" [(ngModel)] = "registerModel.m_min_price" [ngModelOptions]="{standalone: true}">
         <br><br>
-        <input type="text" placeholder="Restaurant Specials" id="Rspecial" required>
-        <input type="text" placeholder="Restaurant maximum price" id="Rmax" required>
+        <input type="text" placeholder="Restaurant Specials" id="m_specials" [(ngModel)] = "registerModel.m_specials" [ngModelOptions]="{standalone: true}">
+        <input type="text" placeholder="Restaurant maximum price" id="m_max_price" [(ngModel)] = "registerModel.m_max_price" [ngModelOptions]="{standalone: true}">
         <br><br>
-        <input type="text" placeholder="Restaurant Address" id="Raddress">
+        <input type="text" placeholder="Restaurant Address" id="m_address" [(ngModel)] = "registerModel.m_address" [ngModelOptions]="{standalone: true}">
         <br><br>
-        <input type="submit" id="submit_bt" value="Submit">
+        <input type="submit" id="submit_bt" value="Submit" (click)="merchantRegistration()">
         <input type="reset" id="reset_bt" value="Clear All">
         
 

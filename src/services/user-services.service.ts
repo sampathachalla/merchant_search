@@ -35,6 +35,18 @@ menuSearch(pL:any) {
       );
   }
 
+private endpoint_merchantRegistration="/customer/merchant_registration"
+merchantRegistration(pL:any) {
+
+  return this.http
+    .post(`${this.baseUrl + this.endpoint_merchantRegistration}`,pL)
+      .pipe(
+        map((res) => {
+          return res;
+        })
+      );
+  }
+
 }
 
 
