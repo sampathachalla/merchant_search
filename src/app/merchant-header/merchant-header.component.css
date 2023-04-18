@@ -1,0 +1,8 @@
+.container{
+    background-color: black;
+    min-height: 10vh;
+    min-width: 100vw;
+    display: flex;
+    align-items: center;
+    
+}

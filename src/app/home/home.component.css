@@ -123,17 +123,8 @@
     border-radius: 0.4rem;
     
 }
-/*button{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
-    width: 100%;
-    outline: none;
-    border: none;
-    border-radius: 0.4rem;
-}*/
-.select-btn .btn-text{
+
+.btn-text{
     display: flex;
     color: #333;
     font-size: 1.2vw;
@@ -538,11 +529,18 @@ button{
     transition: all 0.5s ease-in-out;
 }
 
+.result_button{
+    background-color: transparent;
+    border-radius: 1vw;
+    border: none;
+    outline: none;
+}
+
 
 /*user box css ends here*/
 
 /*side details card popup container starts here*/
-.details_box_component{
+/*.details_box_component{
     width: 28vw;
     border-radius: 2vw;
     box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
@@ -636,16 +634,15 @@ button{
 }
 .details_row3{
     height: 10vh;
-    width: 27vw;
+    width: 26vw;
     display: flex;
     margin: 0.4vw;
-    
     border-radius: 1.5vw;
 
 }
 .details_row4{
     height: 10vh;
-    width: 27vw;
+    width: 26vw;
     display: flex;
     margin: 0.4vw;
     margin-bottom:2vh ;
@@ -666,5 +663,19 @@ button{
     padding-left: 0.8vw;
     padding-top: 3vh;
 }
+.overview_button{
+    background-color: transparent;
+    border-radius: 1vw;
+    border: none;
+    outline: none;
+    margin-left: 0.4vw;
+}
+.review_button{
+    background-color: transparent;
+    border-radius: 1vw;
+    border: none;
+    outline: none;
+    margin-left: 0.4vw;
+}*/
 
 /*side details card popup container starts here*/

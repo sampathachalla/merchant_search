@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -10,6 +11,16 @@ export class HeaderComponent {
 
   toggleMenu():void{
     this.isMenuOpen=this.isMenuOpen;
+  }
+
+  constructor(private router: Router){}
+
+  ngOnInit():void{
+
+  }
+
+  gotToLogin(){
+    this.router.navigate(['/login']);
   }
 
 }

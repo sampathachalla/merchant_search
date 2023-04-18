@@ -40,7 +40,7 @@ export class LoginComponent {
         /*this.tokensJson = JSON.parse(JSON.stringify(restResp.d_json[0]))
         this.tokensJson["userId"] = restResp.userInfo[0].userId;
         localStorage.setItem('_YBCALS_', JSON.stringify(this.tokensJson));*/
-        this.router.navigate(['/home']);
+        this.router.navigate(['/merchant-register']);
        //this.router.navigate([GlobalVariables.urlRTH_RTA_N + '/home']);
       }
       else{

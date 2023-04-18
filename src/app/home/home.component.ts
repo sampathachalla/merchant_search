@@ -77,5 +77,6 @@ export class HomeComponent  {
     this.visible1 = !this.visible1
   }
   
+  
 
 }

@@ -1,0 +1,129 @@
+
+<app-header></app-header>
+<ng-container>
+    <div class="display_box">
+        <div class="display_box1">
+            <div class="display_box1_col1">
+                <img src="assets/pic4.jpg" alt="">
+            </div>
+            <div class="display_box1_col2">
+                <div class="display_box1_col2_row1">
+                    <img src="assets/pic2.jpg" alt="">
+                </div>
+                <div class="display_box1_col2_row2">
+                    <img src="assets/pic3.jpg" alt="">
+                </div>
+            </div>
+            <div class="display_box1_col3">
+                <img src="assets/pic1.jpg" alt="">
+            </div>
+        </div>
+        <div class="display_box2">
+            <div class="display_box2_row1">
+                <div class="display_box2_row1_col1">
+                    <span>
+                        <h2>Paradise Biryani</h2>
+                    </span>
+                </div>
+                <div class="display_box2_row1_col2">
+                    <div class="box_rating">
+                    <span>4</span>
+                    <span class="material-symbols-outlined" id="star_icon">star</span>
+                    </div>
+            </div>
+            </div>
+            <div class="display_box2_row5">
+                <span>Open-Now- </span>
+                <span>11:00-22:00</span>
+            </div>
+            <div class="display_box2_row2">
+                <h4>Cusines:</h4>
+                <span>South-Indian,North-Indian,Arabian,Deserts...</span>
+            </div>
+            <div class="display_box2_row3">
+                <h4>Area:</h4>
+                <span>Gachibowli,Hyderabad</span>
+            </div>
+            <div class="display_box2_row4">
+                <h4>Services:</h4>
+                <span class="s1">Dine-In</span>
+                <span class="s2">Takeaway</span>
+                <span class="s3">Delivery</span>
+                <span class="s4">Buffet</span>
+            </div>
+            <div class="display_box2_row6">
+                <h4>Special:</h4>
+                <span>Pot Biryani</span>
+            </div>
+            <div class="display_box2_row7">
+                <h4>Address:</h4>
+                Plot no 22 & 23, Gachibowli Rd, Vinayak Nagar, Indira Nagar, Gachibowli, Hyderabad, Telangana 500032
+            </div>
+        </div>
+        <div class="display_box3">
+            <div class="display_box3_row3">
+                <button (click)="review_click()">Add Review</button>
+            </div>
+            <ng-container *ngIf="visible1">
+                <div class="review_form">
+                    <div class="review_form_box1">
+                        <div class="star_rating">
+                            <span class="material-symbols-outlined">star</span>
+                            <span class="material-symbols-outlined">star</span>
+                            <span class="material-symbols-outlined">star</span>
+                            <span class="material-symbols-outlined">star</span>
+                        </div>
+                    </div>
+                    <div class="review_form_box2">
+                        <form action="" class="user_review_form">
+                            <input type="text" name="" id="user_id" placeholder="User Id">
+                            <input type="text" name="" id="name_id" placeholder="User Name">
+                            <br><br>
+                            <textarea name="" id="rid" cols="30" rows="10" placeholder="Add your review here"></textarea>
+                            <br><br>
+                            <input type="submit" name="" id="form_submit" value="submit">
+                            <input type="reset" name="" id="form_reset" value="cancel">
+                        </form>
+                        
+                    </div>
+                    
+                </div>
+                <br>
+            </ng-container>
+            <div class="display_box3_row1">
+                <h2>Reviews</h2>
+                <hr class="review_underline">
+            </div>
+            
+            <div class="display_box3_row2">
+                <div class="review_box">
+                    <div class="review_box1">sampath</div>
+                    <div class="review_box2">
+                        <span class="material-symbols-outlined">star</span>
+                        <span class="material-symbols-outlined">star</span>
+                        <span class="material-symbols-outlined">star</span>
+                        <span class="material-symbols-outlined">star</span>
+                        
+                    </div>
+                    <div class="review_box3">
+                        <div class="review_box3_info">
+                            Spicy tasty biryanis to mouth watering tangedi kababs to the sweetest double ka meeta.... 
+                        They are one heck of combo.. their franchises are all over hyderabad but the one thing is its crowd puller...
+                        So always better to order online/over phone if you want privacy and time.
+                        Suggest you to eat chicken biryani if you are spice /masala biryani lover..
+                        If you have facility please drive to them or oder via phone if you are near by the mrp of the products are 
+                        20-40% less to that of prices on food delivery services like zomato/swiggy.
+                        </div>
+                        <div class="review_box3_pic"></div>
+                    </div>
+                </div>
+                 
+                
+                
+            </div>
+
+        </div>
+        
+    </div>
+    
+</ng-container>

@@ -208,7 +208,7 @@
                 </div>
                 <!--Sign in header ends here-->
                 <!--side details card container start here-->
-                <ng-container *ngIf="visible1">
+                <!--<ng-container *ngIf="visible1">
                     <div class="details_box_component">
                         <div class="details_row1">
                             <div class="details_row1_col1">
@@ -232,15 +232,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="details_row3">
+                        <button (click)="overview_click()" class="overview_button"><div class="details_row3">
                             <div class="details_row3_col1">
                                 <h4>Overview</h4>
                             </div>
                             <div class="details_row3_col2">
                                 <span class="material-symbols-outlined" id="arr_dwn">arrow_drop_down</span>
                             </div>
+                            <ng-container *ngIf="visible2">
+                                <div class="overview_display"></div>
+                            </ng-container>
                         </div>
-                        <div class="details_row4">
+                    </button>
+                        <button (click)="review_click()" class="review_button"><div class="details_row4">
                             <div class="details_row4_col1">
                                 <h4>Reviews</h4>
                             </div>
@@ -249,8 +253,12 @@
 
                             </div>
                         </div>
+                    </button>
+                        <ng-container *ngIf="visible3">
+                            <div class="review_display"></div>
+                        </ng-container>
                     </div>
-                </ng-container>
+                </ng-container>-->
                 <!--side details card container ends here-->
 
             </div>
