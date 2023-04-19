@@ -1,2 +1,26 @@
 <app-merchant-header></app-merchant-header>
-<p>merchant-users works!</p>
+<div class="container">
+    <div class="head">
+        <h1>Admin Users</h1>
+    </div>
+    <div class="user_table">
+        <table>
+            <tr>
+              <th class="userID">User ID</th>
+              <th class="userName">User Name</th>
+              <th class="userPass">User Password</th>
+            </tr>
+
+            <tr *ngFor="let adminO of merchantAdminList; let i=index">
+                <td>{{adminO.User_id}}</td>
+                <td>{{adminO.User_Name}}</td>
+                <td>{{adminO.User_Password}}</td>
+                
+                
+                
+                
+              </tr>
+        </table>
+    </div>
+
+</div>

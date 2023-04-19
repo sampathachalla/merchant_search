@@ -1,0 +1,28 @@
+.container{
+    height: 90vh;
+    width: 100vw;
+}
+.head{
+    height: 10vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+  }
+  td{
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 1.5vw;
+  }

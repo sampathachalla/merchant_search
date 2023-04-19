@@ -47,6 +47,30 @@ merchantRegistration(pL:any) {
       );
   }
 
+private endpoint_merchant_reviews="/merchant/merchant-reviews"
+merchantReviews(pL:any) {
+
+  return this.http
+    .post(`${this.baseUrl + this.endpoint_merchant_reviews}`,pL)
+      .pipe(
+        map((res) => {
+          return res;
+        })
+      );
+  }
+
+private endpoint_merchant_admins="/merchant/admins-list"
+merchantAdmins(pL:any) {
+
+  return this.http
+    .post(`${this.baseUrl + this.endpoint_merchant_admins}`,pL)
+      .pipe(
+        map((res) => {
+          return res;
+        })
+      );
+  }
+
 }
 
 
