@@ -17,6 +17,8 @@ import { MerchantHeaderComponent } from './merchant-header/merchant-header.compo
 import { MerchantListComponent } from './merchant-list/merchant-list.component';
 import { MerchantReviewsComponent } from './merchant-reviews/merchant-reviews.component';
 import { MerchantUsersComponent } from './merchant-users/merchant-users.component';
+import { MerchantStoreComponent } from './merchant-store/merchant-store.component';
+import { StoreReviewsComponent } from './store-reviews/store-reviews.component';
 
 const routes: Routes=[
   { path: '',redirectTo:'default',pathMatch:'full'},
@@ -28,7 +30,9 @@ const routes: Routes=[
   { path: 'merchant-header',component:MerchantHeaderComponent},
   { path: 'merchant-list',component:MerchantListComponent },
   { path: 'merchant-reviews',component:MerchantReviewsComponent},
-  { path: 'merchant-users',component:MerchantUsersComponent}
+  { path: 'merchant-users',component:MerchantUsersComponent},
+  { path: 'merchant-store/:merchantID',component:MerchantStoreComponent },
+  { path: 'store-reviews/:merchantID', component:StoreReviewsComponent}
   
 ]
 
@@ -45,6 +49,8 @@ const routes: Routes=[
     MerchantListComponent,
     MerchantReviewsComponent,
     MerchantUsersComponent,
+    MerchantStoreComponent,
+    StoreReviewsComponent,
   ],
   imports: [
     BrowserModule,RouterModule.forRoot(routes, { useHash: true }),

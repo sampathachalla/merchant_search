@@ -1,17 +1,24 @@
 <app-merchant-header></app-merchant-header>
-<p>merchant-list works!</p>
+<div class="head"><h1>Merchant List</h1></div>
 
 <table>
     <tr>
       <th>Restaurant</th>
       <th>Cusines</th>
-      <th>Distance</th>
+      <th>City</th>
+      <th>Address</th>
+      <th>Special</th>
+      <th>Starting year</th>
     </tr>
 
     <tr *ngFor="let merchantO of merchantList; let i=index">
-      <td>{{merchantO.m_name}}</td>
+      
+      <button (click)="goToAdminMerchantDetails(merchantO)"><td>{{merchantO.m_name}}</td></button>
       <td>{{merchantO.m_cusines}}</td>
-      <td>{{merchantO.m_distance}}</td>
+      <td>{{merchantO.m_city}}</td>
+      <td>{{merchantO.m_address}}</td>
+      <td>{{merchantO.m_specials}}</td>
+      <td>{{merchantO.m_experience}}</td>
     </tr>
 
 

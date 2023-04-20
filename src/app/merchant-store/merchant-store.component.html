@@ -1,0 +1,41 @@
+<app-merchant-header></app-merchant-header>
+<div class="container">
+    <div class="display_box" *ngFor="let storeItem of merchantDetails; let i=index">
+        <div class="row1"><h1>{{storeItem.m_name}}</h1></div>
+        <div class="row2">
+            <div class="row2_col1" class="cold">Open Time: {{storeItem.m_open_time}}</div>
+            <div class="row2_col2" class="cold">Close Time: {{storeItem.m_close_time}}</div>
+            <div class="row2_col3" class="cold">Status: {{storeItem.m_status}}</div>
+            <div class="row2_col4" class="cold">Experience: {{storeItem.m_experience}}</div>
+        </div>
+        <div class="row3">
+            <div class="row3_col1" class="col">Categories: {{storeItem.m_categories}}</div>
+            <div class="row3_col2" class="col">Services: {{storeItem.m_services}}</div>
+            <div class="row3_col3" class="col">Cusines: {{storeItem.m_cusines}}</div>
+        </div>
+        <div class="row4">
+            <div class="row4_col1" class="col">Area: {{storeItem.m_area}}</div>
+            <div class="row4_col2" class="col">Street: {{storeItem.m_street}}</div>
+            <div class="row4_col3" class="col">City: {{storeItem.m_city}}</div>
+        </div>
+        <div class="row5">
+            <div class="row5_col1" class="col">Pincode: {{storeItem.m_pincode}}</div>
+            <div class="row5_col2" class="col">Latitude: {{storeItem.m_latitude}}</div>
+            <div class="row5_col3" class="col">Longitude: {{storeItem.m_longitude}}</div>
+        </div>
+        <div class="row6">
+            <div class="row6_col1" class="col">Min Price: {{storeItem.m_min_price}}</div>
+            <div class="row6_col2" class="col">Max Price: {{storeItem.m_max_price}}</div>
+            <div class="row6_col3" class="col">Specials: {{storeItem.m_specials}}</div>
+        </div>
+        <div class="row7">
+            <div class="row7_col1" class="col">Rating: {{storeItem.m_rating}}</div>
+            <div class="row7_col2" class="col">Number of Reviews: {{storeItem.m_rating_count}}</div>
+        </div>
+        <div class="row8">Address: {{storeItem.m_address}}</div>
+        <div class="row9">
+            <div class="row9_col1"><button (click)="goToAdminMerchantReviews(storeItem)">Reviews</button></div>
+            <div class="row9_col1"><button>Edit</button></div>
+        </div>
+    </div>
+</div>

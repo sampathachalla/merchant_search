@@ -83,6 +83,19 @@ userMerchantView(pL:any) {
       );
   }
 
+private endpoint_admin_merchant_list="/merchant/merchats-view"
+adminMerchantList(pL:any) {
+
+  return this.http
+    .post(`${this.baseUrl + this.endpoint_admin_merchant_list}`,pL)
+      .pipe(
+        map((res) => {
+          return res;
+        })
+      );
+  }
+
+
 }
 
 

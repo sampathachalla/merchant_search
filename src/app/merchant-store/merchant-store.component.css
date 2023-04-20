@@ -1,0 +1,57 @@
+.container{
+    display: flex;
+    height: 90vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+}
+.display_box{
+    height: 88vh;
+    width: 95vw;
+}
+.col{
+    height: 8vh;
+    width: 30vw;
+    margin: 1vw;
+    border: 1px solid #333;
+    display: flex;
+    align-items: center;
+    padding-left: 0.5vw;
+}
+.cold{
+    height: 8vh;
+    width: 22.5vw;
+    margin: 1vw;
+    border: 1px solid #333;
+    padding-left: 0.5vw;
+    display: flex;
+    align-items: center;
+
+
+}
+
+
+.row1{
+    height: 15vh;
+    width: 95vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2vw;
+}
+.row2,.row3,.row4,.row5,.row6,.row7,.row8{
+    height: 9vh;
+    width: 95vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2vw;
+}
+.row9{
+    height: 10vh;
+    width: 95vw;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    font-size: 1.2vw;
+}

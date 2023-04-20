@@ -1,0 +1,76 @@
+/*Table css stats here*/
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+  }
+  td{
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 1.5vw;
+  }
+  
+.review{
+    width: 50vw;
+}
+.date{
+    width: 10vw;
+}
+.status{
+    width: 10vw;
+}
+.user{
+    width: 15vw;
+}
+.rating{
+    width: 15vw;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+.rating span{
+    color: gold;
+}
+/*Table css ends here*/
+
+/*Headding css*/
+.head{
+    display: flex;
+}
+.heading{
+    min-height: 10vh;
+    width: 80vw;
+    align-items: center;
+    display: flex;
+    padding-left: 40vw;
+}.page{
+    min-height: 10vh;
+    width: 20vw;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 1.2vw;
+}
+.page button{
+    align-items: center;
+    font-size: 1.2vw;
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+}
+.review_table{
+    width: 96vw;
+    margin-left: 2vw;
+}

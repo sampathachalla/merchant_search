@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ResultModel } from 'src/models/result-model';
+import { adminMerchantList } from 'src/models/login-model';
 import { UserServicesService } from 'src/services/user-services.service';
 import { Router } from '@angular/router';
 
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class MerchantListComponent {
   // my code
-  constructor(public menuService:UserServicesService)
+  constructor(public menuService:UserServicesService,private router: Router)
   {
 
   }
@@ -25,12 +25,16 @@ export class MerchantListComponent {
   loadMerchatList(){
     //this.demo=new ResultModel();
     var payLoad={
-      "sname":""
+      "op":"0"
     }
-    this.menuService.menuSearch(payLoad).subscribe((resp:any) =>{
+    this.menuService.adminMerchantList(payLoad).subscribe((resp:any) =>{
       console.log(resp);
-      this.merchantList=resp.info;
+      this.merchantList=resp.dataJ;
     });
+  }
+
+  goToAdminMerchantDetails(merchantObject:any){
+    this.router.navigate(['/merchant-store'+"/"+merchantObject.M_ID]);
   }
 
 }

@@ -1,0 +1,36 @@
+<app-merchant-header></app-merchant-header>
+<div class="container">
+    <div class="head">
+        <div class="heading">
+            <h1>Store Review Log</h1>
+        </div>
+        <div class="page">
+            <button> < </button>
+            <h3> 1 2 3 ..</h3>
+            <button>></button>
+        </div>
+    </div>
+    <div class="review_table">
+        <table>
+            <tr>
+              <th class="review">Review Text</th>
+              <th class="date">Date</th>
+              <th class="rating">Rating</th>
+              <th class="user">User Id</th>
+              <th class="status">Status</th>
+              
+            </tr>
+              <tr *ngFor="let merchantO of merchantReviewDetails; let i=index">
+                <td>{{merchantO.user_review}}</td>
+                <td>{{merchantO.review_date}}</td>
+                <td>{{merchantO.user_rating}}</td>
+                <td>{{merchantO.user_name}}</td>
+                <td>{{merchantO.review_status}}</td>
+                
+                
+                
+              </tr>
+            
+          </table>
+    </div>
+</div>

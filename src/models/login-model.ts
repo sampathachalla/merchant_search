@@ -22,5 +22,9 @@ export class userMerchantViewModel{
     "user_rating": "";
     "user_review": "";
 }
+export class adminMerchantList{
+    "op":"";
+    "M_ID":"";
+}
 
 
