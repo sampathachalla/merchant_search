@@ -1,4 +1,5 @@
 export class RegisterModel{
+    "op":"";
     "m_name":""; 
     "m_categories":"";
     "m_cusines":"";

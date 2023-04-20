@@ -15,9 +15,10 @@ export class MerchantHeaderComponent {
 
   }
 
-  gotToMerchantRegister(){this.router.navigate(['/merchant-register']);}
-  gotToMerchantList(){this.router.navigate(['/merchant-list']);}
-  gotToMerchantReviews(){this.router.navigate(['/merchant-reviews']);}
-  gotToMerchantUsers(){this.router.navigate(['/merchant-users']);}
+  goToMerchantRegister(){this.router.navigate(['/merchant-register']);}
+  goToMerchantList(){this.router.navigate(['/merchant-list']);}
+  goToMerchantReviews(){this.router.navigate(['/merchant-reviews']);}
+  goToMerchantUsers(){this.router.navigate(['/merchant-users']);}
+  goToDefault(){this.router.navigate(['/default']);}
 
 }

@@ -35,7 +35,7 @@ menuSearch(pL:any) {
       );
   }
 
-private endpoint_merchantRegistration="/customer/merchant_registration"
+private endpoint_merchantRegistration="/merchant/register-merchant"
 merchantRegistration(pL:any) {
 
   return this.http
@@ -64,6 +64,18 @@ merchantAdmins(pL:any) {
 
   return this.http
     .post(`${this.baseUrl + this.endpoint_merchant_admins}`,pL)
+      .pipe(
+        map((res) => {
+          return res;
+        })
+      );
+  }
+
+private endpoint_user_merchant_view="/customer/view-merchant"
+userMerchantView(pL:any) {
+
+  return this.http
+    .post(`${this.baseUrl + this.endpoint_user_merchant_view}`,pL)
       .pipe(
         map((res) => {
           return res;

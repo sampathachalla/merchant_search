@@ -14,4 +14,13 @@ export class MerchantAdminModel{
     "op":"";
 }
 
+export class userMerchantViewModel{
+    "op":"";
+    "M_ID": "";
+    "user_id": "";
+    "user_name": "";
+    "user_rating": "";
+    "user_review": "";
+}
+
 

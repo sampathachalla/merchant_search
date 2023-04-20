@@ -22,6 +22,7 @@ export class MerchantregistrationComponent {
     console.log(this.registerModel);
     //Verify with http service
     let payloadMenu = {
+      "op":"0",
       "m_name": this.registerModel.m_name,
       "m_categories":this.registerModel.m_categories,
       "m_cusines":this.registerModel.m_cusines,
