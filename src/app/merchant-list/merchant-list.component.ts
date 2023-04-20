@@ -35,6 +35,7 @@ export class MerchantListComponent {
 
   goToAdminMerchantDetails(merchantObject:any){
     this.router.navigate(['/merchant-store'+"/"+merchantObject.M_ID]);
+   // this.router.navigate([]).then(result => { window.open('/merchant-store'+"/"+merchantObject.M_ID , '_blank'); });
   }
 
   goToAdminMerchantActive(merchantObject1:any){

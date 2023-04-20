@@ -19,6 +19,10 @@ export class MerchantHeaderComponent {
   goToMerchantList(){this.router.navigate(['/merchant-list']);}
   goToMerchantReviews(){this.router.navigate(['/merchant-reviews']);}
   goToMerchantUsers(){this.router.navigate(['/merchant-users']);}
-  goToDefault(){this.router.navigate(['/default']);}
+  
+  goToDefault(){
+    localStorage.clear();
+    this.router.navigate(['/default']
+    );}
 
 }

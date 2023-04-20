@@ -6,6 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
+import {AuthGuard} from '../app/auth.guard';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -26,11 +28,12 @@ const routes: Routes=[
   { path: 'home',component:HomeComponent},
   { path:'display/:merchantID',component:DetailsComponent},
   { path:'default',component:MerchantsearchComponent},
-  { path:'merchant-register',component:MerchantregistrationComponent},
+  
+  { path:'merchant-register',component:MerchantregistrationComponent,canActivate:[AuthGuard]},
   { path: 'merchant-header',component:MerchantHeaderComponent},
-  { path: 'merchant-list',component:MerchantListComponent },
-  { path: 'merchant-reviews',component:MerchantReviewsComponent},
-  { path: 'merchant-users',component:MerchantUsersComponent},
+  { path: 'merchant-list',component:MerchantListComponent ,canActivate:[AuthGuard]},
+  { path: 'merchant-reviews',component:MerchantReviewsComponent,canActivate:[AuthGuard]},
+  { path: 'merchant-users',component:MerchantUsersComponent,canActivate:[AuthGuard]},
   { path: 'merchant-store/:merchantID',component:MerchantStoreComponent },
   { path: 'store-reviews/:merchantID', component:StoreReviewsComponent}
   

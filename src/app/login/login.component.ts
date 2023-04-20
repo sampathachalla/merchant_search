@@ -32,16 +32,13 @@ export class LoginComponent {
       "User_Password": this.loginModel.user_password
       
     }
-    
     this.UserServicesService.customerLoginService(payloadMenu).subscribe((restResp: any) => {
       console.log('rest resp:',restResp)
       if(restResp.statusCode == 200 && restResp.message == "success"&& restResp.info == "valid"){
         console.log(restResp)
-        /*this.tokensJson = JSON.parse(JSON.stringify(restResp.d_json[0]))
-        this.tokensJson["userId"] = restResp.userInfo[0].userId;
-        localStorage.setItem('_YBCALS_', JSON.stringify(this.tokensJson));*/
+        let lJosn = {"user_id":this.loginModel.user_id}
+        localStorage.setItem('__CC__', JSON.stringify(lJosn));
         this.router.navigate(['/merchant-register']);
-       //this.router.navigate([GlobalVariables.urlRTH_RTA_N + '/home']);
       }
       else{
         alert(JSON.stringify(restResp));
