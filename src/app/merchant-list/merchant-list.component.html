@@ -9,6 +9,8 @@
       <th>Address</th>
       <th>Special</th>
       <th>Starting year</th>
+      <th>Status</th>
+      <th>Action</th>
     </tr>
 
     <tr *ngFor="let merchantO of merchantList; let i=index">
@@ -19,6 +21,9 @@
       <td>{{merchantO.m_address}}</td>
       <td>{{merchantO.m_specials}}</td>
       <td>{{merchantO.m_experience}}</td>
+      <td>{{merchantO.m_status}}</td>
+      <td><button (click)="goToAdminMerchantActive(merchantO)">Active</button>
+        <button (click)="goToAdminMerchantDeactive(merchantO)">Deactive</button></td>
     </tr>
 
 

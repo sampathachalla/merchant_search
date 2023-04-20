@@ -37,4 +37,30 @@ export class MerchantListComponent {
     this.router.navigate(['/merchant-store'+"/"+merchantObject.M_ID]);
   }
 
+  goToAdminMerchantActive(merchantObject1:any){
+    console.log(merchantObject1.M_ID)
+    var payLoad={
+      "op": "2",
+     "M_ID": merchantObject1.M_ID,
+     "admin_m_status": "0",
+    }
+    this.menuService.merchantRegistration(payLoad).subscribe((resp:any) =>{
+      console.log(resp);
+    });
+    
+  }
+  goToAdminMerchantDeactive(merchantObject2:any){
+    console.log(merchantObject2.M_ID)
+    var payLoad={
+      "op": "2",
+     "M_ID": merchantObject2.M_ID,
+     "admin_m_status": "1",
+    }
+    this.menuService.merchantRegistration(payLoad).subscribe((resp:any) =>{
+      console.log(resp);
+    });
+  }
+
+
+
 }

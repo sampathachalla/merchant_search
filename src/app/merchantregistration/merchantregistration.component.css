@@ -1,5 +1,4 @@
 .container{
-    background-color: aqua;
     min-width: 90vw;
     min-height: 90vh;
     display: flex;
@@ -16,4 +15,11 @@ input{
     height: 6vh;
     width: 20vw;
     margin-left: 10vw;
+}
+.head{
+    height: 15vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

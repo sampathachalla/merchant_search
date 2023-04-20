@@ -18,6 +18,7 @@
               <th class="rating">Rating</th>
               <th class="user">User Id</th>
               <th class="status">Status</th>
+              <th class="action">Action</th>
               
             </tr>
             <!--<tr>
@@ -81,6 +82,8 @@
                 <td>{{merchantO.user_rating}}</td>
                 <td>{{merchantO.user_name}}</td>
                 <td>{{merchantO.review_status}}</td>
+                <td><button (click)="goToAdminReviewAccept(merchantO)">Approve</button>
+                  <button (click)="goToAdminReviewReject(merchantO)">Reject</button></td>
                 
                 
                 

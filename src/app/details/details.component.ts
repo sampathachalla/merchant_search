@@ -69,6 +69,7 @@ export class DetailsComponent {
       console.log(resp);
       if(resp.statusCode == 200 && resp.message == "success"&& resp.info == "valid"){
         console.log(resp)
+        alert(JSON.stringify(resp))
       }
       /*else{
         alert(JSON.stringify(resp));

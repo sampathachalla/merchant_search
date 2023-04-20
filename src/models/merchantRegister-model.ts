@@ -1,5 +1,7 @@
 export class RegisterModel{
     "op":"";
+    "admin_m_status": "";
+    "M_ID": "";
     "m_name":""; 
     "m_categories":"";
     "m_cusines":"";
@@ -17,4 +19,5 @@ export class RegisterModel{
     "m_experience":"";
     "m_specials":"";
     "m_address":"";
+
 }

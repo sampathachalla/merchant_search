@@ -81,8 +81,8 @@
                             <br><br>
                             <textarea name="" id="user_review" cols="30" rows="10" placeholder="Add your review here" [(ngModel)] = "reviewModel.user_review" [ngModelOptions]="{standalone: true}"></textarea>
                             <br><br>
-                            <input type="submit" name="" id="form_submit" value="submit" (click)="addUserReview()">
-                            <input type="reset" name="" id="form_reset" value="cancel">
+                            <input type="submit" name="" id="form_submit" value="submit" (click)="addUserReview()" (click)="review_click()">
+                            <input type="reset" name="" id="form_reset" value="cancel" (click)="review_click()">
                         </form>
                         
                     </div>

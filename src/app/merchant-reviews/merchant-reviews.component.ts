@@ -33,4 +33,32 @@ export class MerchantReviewsComponent {
     });
   }
 
+  goToAdminReviewAccept(merchantObject1:any){
+    console.log(merchantObject1.merchant_id,merchantObject1.t_s)
+    var payLoad={
+      "op": "2",
+     "merchant_id": merchantObject1.merchant_id,
+     "review_id": merchantObject1.t_s,
+     "adminO": "1",
+    }
+    this.menuService.merchantReviews(payLoad).subscribe((resp:any) =>{
+      console.log(resp);
+    });
+    
+  }
+  goToAdminReviewReject(merchantObject2:any){
+    console.log(merchantObject2.merchant_id,merchantObject2.t_s)
+    var payLoad={
+      "op": "2",
+     "merchant_id": merchantObject2.merchant_id,
+     "review_id": merchantObject2.t_s,
+     "adminO": "0",
+    }
+    this.menuService.merchantReviews(payLoad).subscribe((resp:any) =>{
+      console.log(resp);
+    });
+  }
+
+  
+
 }
