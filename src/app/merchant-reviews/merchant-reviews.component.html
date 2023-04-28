@@ -1,94 +1,47 @@
 <app-merchant-header></app-merchant-header>
 <div class="container">
-    <div class="head">
-        <div class="heading">
-            <h1>Users Review Log</h1>
-        </div>
-        <div class="page">
-            <button> < </button>
-            <h3> 1 2 3 ..</h3>
-            <button>></button>
-        </div>
+  <div class="head">
+    <div class="heading">
+      <h1>Users Review Logs</h1>
     </div>
-    <div class="review_table">
-        <table>
-            <tr>
-              <th class="review">Review Text</th>
-              <th class="date">Date</th>
-              <th class="rating">Rating</th>
-              <th class="user">User Id</th>
-              <th class="status">Status</th>
-              <th class="action">Action</th>
-              
-            </tr>
-            <!--<tr>
-              <td class="review">One of the busiest outlet of paradise, I was awestruck when I saw the crowd there! Feels really good to see an ambience full of foodies.
-                I was there for a food review session! Like any other outlet Gachibowli Paradise is also serving Haleem this 
-                year and we were their to taste this authentic 
-                100% meat haleem. It was served with pure ghee, fried onions and a lot of love. 
-                Don’t miss it because you get a free coke with every haleem.
-                We also tried their chicken biryani and mutton haleem which were decent! I hope they level up again and work on it 
-                because there are lot of places in hyderabad which is serving better Biryani and talking about the kebabs again it needs a 
-                lot of improvement. It actually tasted same expect Reshmi kebabs and Malai tikka kebab.
-                Thankyou!</td>
-              <td class="date">18-04-2023</td>
-              <td class="rating">
-                <span class="material-symbols-outlined">star</span>
-                <span class="material-symbols-outlined">star</span>
-                <span class="material-symbols-outlined">star</span>
-                <span class="material-symbols-outlined">star</span>
-                <span class="material-symbols-outlined">star</span>
-
-              </td>
-              <td class="user">Jai Ram</td>
-              <td class="status">New</td>
-            </tr>
-            <tr>
-                <td class="review">I tried Veg soft noodles, Prawns biriyani and Special Mutton biriyani. The quantity is less 
-                    in the prawns biriyani but the taste was good. Veg soft noodles taste was also fine.The special mutton 
-                    biriyani was very good. The place is little bit congested but the service is fast and also they are 
-                    maintaining good hygiene.</td>
-                <td class="date">22-03-2023</td>
-                <td class="rating">
-                  <span class="material-symbols-outlined">star</span>
-                  <span class="material-symbols-outlined">star</span>
-                  <span class="material-symbols-outlined">star</span>
-                  <span class="material-symbols-outlined">star</span>
-                  
-  
-                </td>
-                <td class="user">Sri Krishna</td>
-                <td class="status">Accepted</td>
-              </tr>
-              <tr>
-                <td class="review">The Thali was served earlier whoch was good but now the prices are high and the taste is 
-                    not upto the mark. Chef special dishes can be tried such as Tandoori chicken masala etc</td>
-                <td class="date">01-04-2023</td>
-                <td class="rating">
-                  
-                 
-                  <span class="material-symbols-outlined">star</span>
-                  <span class="material-symbols-outlined">star</span>
-                  
-  
-                </td>
-                <td class="user">shyam singa roy</td>
-                <td class="status">Rejected</td>
-              </tr>-->
-
-              <tr *ngFor="let merchantO of merchantReviewList; let i=index">
-                <td>{{merchantO.user_review}}</td>
-                <td>{{merchantO.review_date}}</td>
-                <td>{{merchantO.user_rating}}</td>
-                <td>{{merchantO.user_name}}</td>
-                <td>{{merchantO.review_status}}</td>
-                <td><button (click)="goToAdminReviewAccept(merchantO)">Approve</button>
-                  <button (click)="goToAdminReviewReject(merchantO)">Reject</button></td>
-                
-                
-                
-              </tr>
-            
-          </table>
-    </div>
+  </div>
+  <div class="review_table">
+    <table>
+      <thead>
+        <tr>
+          <th>SI.NO</th>
+          <th>Review Text</th>
+          <th>Date</th>
+          <th>Rating</th>
+          <th>User Id</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let merchantO of merchantReviewList; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td class="review">{{ merchantO.user_review }}</td>
+        <td class="date">{{ merchantO.review_date }}</td>
+        <td class="rating">{{ merchantO.user_rating }}</td>
+        <td class="user">{{ merchantO.user_id }}</td>
+        <td class="status">{{ merchantO.review_status }}</td>
+        <td class="action">
+          <div class="act">
+            <button
+              (click)="goToAdminReviewAccept(merchantO)"
+              class="accept-btn"
+            >
+              <span class="material-symbols-outlined">done</span>
+            </button>
+            <button
+              (click)="goToAdminReviewReject(merchantO)"
+              class="reject-btn"
+            >
+              <span class="material-symbols-outlined">close</span>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>

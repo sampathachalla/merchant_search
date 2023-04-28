@@ -1,76 +1,112 @@
 /*Table css stats here*/
 table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  th {
-    border: 1px solid #dddddd;
-    text-align: center;
-    padding: 8px;
-  }
-  td{
-    border: 1px solid #dddddd;
-    text-align: center;
-    padding: 1.5vw;
-  }
-  
-.review{
-    width: 50vw;
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
 }
-.date{
-    width: 10vw;
+
+th {
+  border: 1px solid #dddddd;
+  text-align: center;
 }
-.status{
-    width: 10vw;
+td {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 1.5vw;
 }
-.user{
-    width: 15vw;
+
+thead th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 1.5vw;
+  font-size: 1.25vw;
+  background-color: #e94b3cff;
+  color: white;
 }
-.rating{
-    width: 15vw;
+
+.review {
+  width: 50vw;
 }
+.date {
+  width: 10vw;
+}
+.status {
+  width: 5vw;
+}
+.user {
+  width: 15vw;
+}
+.rating {
+  width: 5vw;
+}
+.action {
+  width: 10vw;
+  height: 100%;
+}
+
 
 .material-symbols-outlined {
   font-variation-settings:
-  'FILL' 1,
-  'wght' 400,
+  'FILL' 0,
+  'wght' 700,
   'GRAD' 0,
   'opsz' 48
 }
-.rating span{
-    color: gold;
+.act{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
+.accept-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: white;
+    color: #32751d;
+    cursor: pointer;
+    
+}
+.reject-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: white;
+    color: #e94b3cff;
+    cursor: pointer;
+    
+    
+}
+
 /*Table css ends here*/
 
 /*Headding css*/
-.head{
-    display: flex;
+.head {
+  display: flex;
+  height: 10vh;
+  width: 90vw;
+  display: flex;
+  margin-left: 5vw;
+  align-items: center;
+  justify-content: center;
 }
-.heading{
-    min-height: 10vh;
-    width: 80vw;
-    align-items: center;
-    display: flex;
-    padding-left: 40vw;
-}.page{
-    min-height: 10vh;
-    width: 20vw;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    font-size: 1.2vw;
+.heading {
+  height: 10vh;
+  width: 80vw;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  color: #00203fff;
+  font-size: 1.5vw;
 }
-.page button{
-    align-items: center;
-    font-size: 1.2vw;
-    border: none;
-    outline: none;
-    background: transparent;
-    cursor: pointer;
-}
-.review_table{
-    width: 96vw;
-    margin-left: 2vw;
+.review_table {
+  width: 96vw;
+  margin-left: 2vw;
+  height: 60vh;
+  overflow: scroll;
 }

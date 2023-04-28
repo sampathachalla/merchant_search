@@ -7,6 +7,84 @@
     justify-content: center;
     
 }
-button{
-    margin-left: 6vw;
+.box1{
+    height: 10vh;
+    width: 15vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.box2{
+    height: 10vh;
+    width: 70vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.box3{
+    height: 10vh;
+    width: 15vw;
+    display: flex;
+}
+.box2_col1{
+    height: 10vh;
+    width: 10vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.box2_col2{
+    height: 10vh;
+    width: 10vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.box2_col3{
+    height: 10vh;
+    width: 10vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.box2_col4{
+    height: 10vh;
+    width: 10vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.box3_col1{
+    height: 10vh;
+    width: 10vw;
+    display: flex;
+    align-items: center;
+    justify-content:flex-start;
+}
+
+.box2 button{
+    height: 6vh;
+    width: 8vw;
+    background-color: transparent;
+    color: white;
+    font-size: 1.2vw;
+    font-weight: 600;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.box3 button{
+    height: 6vh;
+    width: 8vw;
+    background-color: transparent;
+    color: #e94b3cff;
+    font-size: 1.2vw;
+    font-weight: 600;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.box2 button:hover{
+    color: #e94b3cff;
+    transition: all 0.5s ease;
 }

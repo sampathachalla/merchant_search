@@ -1,76 +1,70 @@
 /*Table css stats here*/
 table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  th {
-    border: 1px solid #dddddd;
-    text-align: center;
-    padding: 8px;
-  }
-  td{
-    border: 1px solid #dddddd;
-    text-align: center;
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+}
+
+th {
+  border: 1px solid #dddddd;
+  text-align: center;
+}
+td {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 1.5vw;
+}
+thead th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    font-size: 1.25vw;
     padding: 1.5vw;
+    background-color: #e94b3cff;
+    color: white;
   }
-  
-.review{
-    width: 50vw;
-}
-.date{
-    width: 10vw;
-}
-.status{
-    width: 10vw;
-}
-.user{
-    width: 15vw;
-}
-.rating{
-    width: 15vw;
-}
-
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 1,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 48
-}
-.rating span{
-    color: gold;
-}
-/*Table css ends here*/
-
-/*Headding css*/
-.head{
-    display: flex;
-}
-.heading{
-    min-height: 10vh;
+  .review_table {
+    height: 60vh;
+    overflow: scroll;
     width: 80vw;
-    align-items: center;
+    margin-left: 10vw;
+    
+  }
+
+  .review {
+    width: 50vw;
+  }
+  .date {
+    width: 15vw;
+  }
+  .status {
+    width: 5vw;
+  }
+  .user {
+    width: 15vw;
+  }
+  .rating {
+    width: 5vw;
+  }
+
+.container{
+    width: 100vw;
+    padding-bottom: 20px;
+}
+.head{
+    height: 10vh;
+    width: 90vw;
+    margin-left: 5vw;
     display: flex;
-    padding-left: 40vw;
-}.page{
-    min-height: 10vh;
-    width: 20vw;
     align-items: center;
     justify-content: center;
+}
+.heading{
+    height: 10vh;
+    width: 80vw;
     display: flex;
-    font-size: 1.2vw;
-}
-.page button{
     align-items: center;
-    font-size: 1.2vw;
-    border: none;
-    outline: none;
-    background: transparent;
-    cursor: pointer;
-}
-.review_table{
-    width: 96vw;
-    margin-left: 2vw;
+    justify-content: center;
+    font-size: 1.15vw;
+    color: #00203fff;
 }

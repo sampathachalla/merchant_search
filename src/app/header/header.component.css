@@ -1,78 +1,101 @@
-.heading{
+.container{
+    background-color: black;
+    min-height: 10vh;
+    min-width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.box1{
     height: 10vh;
-    font-family: 'poppins',sans-serif;
-    background-color: white;
+    width: 15vw;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.head{
-    position: fixed;
-    width: 100%;
-    top: 0;
-    right: 0;
-    z-index: 1000;
-    display: flex;
-    background: transparent;
-    transition: all .50s ease;
-    align-items: center;
-    justify-content: end;
+.box2{
     height: 10vh;
-}
-.logo{
+    width: 70vw;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
-.navbar{
+.box3{
+    height: 10vh;
+    width: 15vw;
     display: flex;
 }
-.navbar li a{
-    color: white;
-    font-size: 1.1rem;
-    font-weight: 500;
-    padding: 5px 0;
-    margin: 0px 30px;
-    transition: all .50s ease;
-}
-.navbar li a:hover{
-    color: #E94B3cff;
-}
-.main{
+.box2_col1{
+    height: 10vh;
+    width: 10vw;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
-.main a{
-    margin-right: 25px;
-    margin-left: 10px;
-    color: #00203fff;
-    font-size: 1.1rem;
-    font-weight: 500;
-    transition: all .50s ease;
-}
-.main a:hover{
-    color: #E94B3cff;
-}
-.user{
+.box2_col2{
+    height: 10vh;
+    width: 10vw;
     display: flex;
     align-items: center;
+    justify-content: center;
+}
+.box2_col3{
+    height: 10vh;
+    width: 10vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.box2_col4{
+    height: 10vh;
+    width: 10vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.box3_col1{
+    height: 10vh;
+    width: 10vw;
+    display: flex;
+    align-items: center;
+    justify-content:flex-start;
+}
 
+.box2 button{
+    height: 6vh;
+    width: 8vw;
+    background-color: transparent;
+    color: white;
+    font-size: 1.2vw;
+    font-weight: 600;
+    outline: none;
+    border: none;
+    cursor: pointer;
 }
-.user span{
-    color: #E94B3cff;
-    font-size: 28px;
-    margin-right: 7px;
-}
-.sub_head1{
-    height: 50%;
-    width: 20%;
+.box3 button{
+    height: 10vh;
+    width: 8vw;
+    background-color: transparent;
+    color: white;
+    font-size: 1.2vw;
+    font-weight: 600;
+    outline: none;
+    border: none;
+    cursor: pointer;
     display: flex;
     align-items: center;
-    margin-left: 2%;
-}
-.sub_head3{
-    height: 100%;
-    width: 30%;
-    display: flex;
     justify-content: center;
-    align-items: center;
+}
+.box3 button:hover{
+    color: #e94b3cff;
+    transition: all 0.5s ease;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 700,
+  'GRAD' 0,
+  'opsz' 48
 }

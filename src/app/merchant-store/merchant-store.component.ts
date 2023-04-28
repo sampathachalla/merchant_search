@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {UserServicesService} from "../../services/user-services.service";
 import { Router } from '@angular/router';
+import { RegisterModel } from 'src/models/merchantRegister-model';
+import { UserServicesService } from 'src/services/user-services.service';
 
 @Component({
   selector: 'app-merchant-store',
@@ -17,6 +18,7 @@ export class MerchantStoreComponent {
       this.merchantID = params["merchantID"];
       console.log(this.merchantID );
     })
+    
     
   }
   ngOnInit(){
@@ -39,5 +41,8 @@ export class MerchantStoreComponent {
   goToAdminMerchantReviews(merchantObject:any){
     this.router.navigate(['/store-reviews'+"/"+merchantObject.M_ID]);
   }
+
+
+
 
 }

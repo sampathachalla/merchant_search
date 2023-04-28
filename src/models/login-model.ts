@@ -25,6 +25,7 @@ export class userMerchantViewModel{
 export class adminMerchantList{
     "op":"";
     "M_ID":"";
+    "search_inp":"";
 }
 
 

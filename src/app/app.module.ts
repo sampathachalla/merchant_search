@@ -34,8 +34,8 @@ const routes: Routes=[
   { path: 'merchant-list',component:MerchantListComponent ,canActivate:[AuthGuard]},
   { path: 'merchant-reviews',component:MerchantReviewsComponent,canActivate:[AuthGuard]},
   { path: 'merchant-users',component:MerchantUsersComponent,canActivate:[AuthGuard]},
-  { path: 'merchant-store/:merchantID',component:MerchantStoreComponent },
-  { path: 'store-reviews/:merchantID', component:StoreReviewsComponent}
+  { path: 'merchant-store/:merchantID',component:MerchantStoreComponent ,canActivate:[AuthGuard]},
+  { path: 'store-reviews/:merchantID', component:StoreReviewsComponent ,canActivate:[AuthGuard]}
   
 ]
 

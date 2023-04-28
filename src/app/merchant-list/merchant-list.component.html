@@ -1,57 +1,52 @@
 <app-merchant-header></app-merchant-header>
-<div class="head"><h1>Merchant List</h1></div>
-
-<table>
-    <tr>
-      <th>Restaurant</th>
-      <th>Cusines</th>
-      <th>City</th>
-      <th>Address</th>
-      <th>Special</th>
-      <th>Starting year</th>
-      <th>Status</th>
-      <th>Action</th>
-    </tr>
-
-    <tr *ngFor="let merchantO of merchantList; let i=index">
-      
-      <button (click)="goToAdminMerchantDetails(merchantO)"><td>{{merchantO.m_name}}</td></button>
-      <td>{{merchantO.m_cusines}}</td>
-      <td>{{merchantO.m_city}}</td>
-      <td>{{merchantO.m_address}}</td>
-      <td>{{merchantO.m_specials}}</td>
-      <td>{{merchantO.m_experience}}</td>
-      <td>{{merchantO.m_status}}</td>
-      <td><button (click)="goToAdminMerchantActive(merchantO)">Active</button>
-        <button (click)="goToAdminMerchantDeactive(merchantO)">Deactive</button></td>
-    </tr>
-
-
-    <!-- <tr>
-      <td>Centro comercial Moctezuma</td>
-      <td>Francisco Chang</td>
-      <td>Mexico</td>
-    </tr>
-    <tr>
-      <td>Ernst Handel</td>
-      <td>Roland Mendel</td>
-      <td>Austria</td>
-    </tr>
-    <tr>
-      <td>Island Trading</td>
-      <td>Helen Bennett</td>
-      <td>UK</td>
-    </tr>
-    <tr>
-      <td>Laughing Bacchus Winecellars</td>
-      <td>Yoshi Tannamuri</td>
-      <td>Canada</td>
-    </tr>
-    <tr>
-      <td>Magazzini Alimentari Riuniti</td>
-      <td>Giovanni Rovelli</td>
-      <td>Italy</td>
-    </tr> -->
-  </table>
-
-
+<div class="container">
+  <div class="head"><h1>Restaurant List</h1></div>
+  <div class="table_search">
+    <form action="">
+      <input type="search" name="" id="search_inp" class="search_box" placeholder="Search" [(ngModel)] = "userInp.search_inp" [ngModelOptions]="{standalone: true}">
+      <input type="submit" name="" id="" class="search_btn" value="Search" (click)="loadMerchatList1()">
+    </form>
+  </div>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th class="heading1">SI.No</th>
+          <th class="heading1">Restaurant Name</th>
+          <th class="heading1">Area</th>
+          <th class="heading1">City</th>
+          <th class="heading1">Category</th>
+          <th class="heading1">Cusine</th>
+          <th class="heading1">Service</th>
+          <th class="heading1">Status</th>
+          <th class="heading1">Action</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let merchantO of merchantList; let i = index">
+          <td>{{i+1}}</td>
+          <td>
+            <button (click)="goToAdminMerchantDetails(merchantO)" class="store-btn">
+              {{ merchantO.m_name }}
+            </button>
+          </td>
+          <td>{{ merchantO.m_area }}</td>
+          <td>{{ merchantO.m_city }}</td>
+          <td>{{ merchantO.m_categories }}</td>
+          <td>{{ merchantO.m_cusines }}</td>
+          <td>{{ merchantO.m_services }}</td>
+          <td>{{ merchantO.m_status }}</td>
+          <td>
+            <button (click)="goToAdminMerchantDeactive(merchantO)" class="action-btn">
+              <label class="switch">
+                <input type="checkbox" checked />
+                <span class="slider round"></span>
+              </label>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

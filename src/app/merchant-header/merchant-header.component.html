@@ -1,8 +1,30 @@
-
 <div class="container">
-    <button (click)="goToMerchantRegister()">Merchant-Register</button>
-    <button (click)="goToMerchantList()">Merchant-List</button>
-    <button (click)="goToMerchantReviews()">Merchant-Reviews</button>
-    <button (click)="goToMerchantUsers()">Merchant-Admins</button>
-    <button (click)="goToDefault()">Log Out</button>
+  <div class="box1">
+    <img
+      src="assets/logo.png"
+      alt="Logo"
+      height="100%"
+      width="40%"
+      class="logo"
+    />
+  </div>
+  <div class="box2">
+    <div class="box2_col1">
+      <button (click)="goToMerchantRegister()">Register</button>
+    </div>
+    <div class="box2_col2">
+      <button (click)="goToMerchantList()">Restaurant <br /></button>
+    </div>
+    <div class="box2_col3">
+      <button (click)="goToMerchantReviews()">Reviews</button>
+    </div>
+    <div class="box2_col4">
+      <button (click)="goToMerchantUsers()">Admins</button>
+    </div>
+  </div>
+  <div class="box3">
+    <div class="box3_col1">
+      <button (click)="goToDefault()">Log Out</button>
+    </div>
+  </div>
 </div>
