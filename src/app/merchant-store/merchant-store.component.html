@@ -3,21 +3,21 @@
     <!--<div class="heading">
         <h1>Store Details</h1>
     </div>-->
-    <div class="display_box" *ngFor="let storeItem of merchantDetails; let i = index">
+    <div class="display_box">
         <div class="box1">
             <div class="box1_col1">
-                <span><h1>{{storeItem.m_name}}</h1></span>
+                <span><h1>{{merchantModel.m_name}}</h1></span>
             </div>
         </div>
         <div class="box3">
             <div class="box3_col1">
-                <div class="box">Rating:{{storeItem.m_rating}}</div>
+                <div class="box">Rating:{{merchantModel.m_rating}}</div>
             </div>
             <div class="box3_col2">
-                <div class="box">Status:{{storeItem.m_status}}</div>
+                <div class="box">Status:{{merchantModel.m_status}}</div>
             </div>
             <div class="box3_col3">
-                <div class="box">No. Of Reviews:{{storeItem.m_rating_count}}</div>
+                <div class="box">No. Of Reviews:{{merchantModel.m_rating_count}}</div>
             </div>
         </div>
 
@@ -28,76 +28,81 @@
                     <div class="col">
                         <label for=""><span>Open Time:</span>
                             <br>
-                            <input type="text" name="" id="" value="{{storeItem.m_open_time}}">
+                            <input type="text"  id="m_open_time" [ngModelOptions]="{standalone: true}"  [(ngModel)] = "merchantModel.m_open_time" >
                         </label>
                     </div>
-                    <div class="col">
+                    <div class="col"> 
                         <label for=""><span>Specials:</span>
                             <br>
-                            <input type="text" name="" id="" value="{{storeItem.m_specials}}">
+                            <input type="text"  id="m_specials" [ngModelOptions]="{standalone: true}"  [(ngModel)] = "merchantModel.m_specials">
                         </label>
                     </div>
                 </div>
-                <div class="sub1_box2_row2">
+               <div class="sub1_box2_row2">
                     <div class="col">
                         <label for=""><span>Close Time:</span>
                             <br>
-                            <input type="text" name="" id="" value="{{storeItem.m_close_time}}">
+                            <input type="text"  id="m_close_time" [ngModelOptions]="{standalone: true}"  [(ngModel)] = "merchantModel.m_close_time">
                         </label>
                     </div>
                     <div class="col">
                         <label for=""><span>Services:</span>
                             <br>
-                            <input type="text" name="" id="" value="{{storeItem.m_services}}">
+                            <input type="text"  id="m_services" [ngModelOptions]="{standalone: true}"  [(ngModel)] = "merchantModel.m_services">
                         </label>
                     </div>
                 </div>
+
                 <div class="sub1_box2_row3">
                     <div class="col">
                         <label for=""><span>Min Price:</span>
                             <br>
-                            <input type="text" name="" id="" value="{{storeItem.m_min_price}}">
+                            <input type="text"  id="m_min_price" [ngModelOptions]="{standalone: true}"   [(ngModel)] = "merchantModel.m_min_price">
                         </label>
                     </div>
                     <div class="col">
                         <label for=""><span>Cusines:</span>
                             <br>
-                            <input type="text" name="" id="" value="{{storeItem.m_cusines}}">
+                            <input type="text"  id="m_cusines" [ngModelOptions]="{standalone: true}"  [(ngModel)] = "merchantModel.m_cusines">
                         </label>
                     </div>
                 </div>
+              
                 <div class="sub1_box2_row4">
                     <div class="col">
                         <label for=""><span>Max Price:</span>
                             <br>
-                            <input type="text" name="" id="" value="{{storeItem.m_max_price}}">
+                            <input type="text"  id="m_max_price" [ngModelOptions]="{standalone: true}"  [(ngModel)] = "merchantModel.m_max_price">
                         </label>
                     </div>
                     <div class="col">
                         <label for=""><span>Categories</span>
                             <br>
-                            <input type="text" name="" id="" value="{{storeItem.m_categories}}">
+                            <input type="text"  id="m_categories" [ngModelOptions]="{standalone: true}"  [(ngModel)] = "merchantModel.m_categories">
                         </label>
                     </div>
                 </div>
+                   
                 <div class="sub1_box2_row5">
-                    <input type="submit" name="" id="" value="Edit" class="sbt_btn">
+                    <input type="submit" name="" id="" value="Edit" class="sbt_btn" (click)="editMerchant1()">
                 </div>
                 </form>
             </div>
-            <div class="sub2_box2">
+           
+           
+             <div class="sub2_box2">
                 <form action="">
                 <div class="sub2_box2_row1">
                     <div class="col">
                         <label for=""><span>Street:</span>
                             <br>
-                            <input type="text" name="" id="" value="{{storeItem.m_street}}">
+                            <input type="text" name="" id="m_street" [ngModelOptions]="{standalone: true}" [(ngModel)] = "merchantModel2.m_street">
                         </label>
                     </div>
                     <div class="col">
                         <label for=""><span>Area:</span>
                             <br>
-                            <input type="text" name="" id="" value="{{storeItem.m_area}}">
+                            <input type="text" name="" id="m_area" [ngModelOptions]="{standalone: true}" [(ngModel)] = "merchantModel2.m_area">
                         </label>
                     </div>
                 </div>
@@ -107,7 +112,7 @@
                             City:
                         </span>
                             <br>
-                            <input type="text" name="" id="" value="{{storeItem.m_city}}">
+                            <input type="text" name="" id="m_city" [ngModelOptions]="{standalone: true}" [(ngModel)] = "merchantModel2.m_city">
                         </label>
                     </div>
                     <div class="col">
@@ -115,7 +120,7 @@
                             Pincode:
                         </span>
                         <br>
-                            <input type="text" name="" id="" value="{{storeItem.m_pincode}}">
+                            <input type="text" name="" id="m_pincode" [ngModelOptions]="{standalone: true}" [(ngModel)] = "merchantModel2.m_pincode">
                         </label>
                     </div>
                 </div>
@@ -125,7 +130,7 @@
                             Latitude:
                         </span>
                         <br>
-                            <input type="text" name="" id="" value="{{storeItem.m_latitude}}">
+                            <input type="text" name="" id="" [ngModelOptions]="{standalone: true}" [(ngModel)] = "merchantModel2.m_latitude">
                         </label>
                     </div>
                     <div class="col">
@@ -133,7 +138,7 @@
                             Longitude:
                         </span>
                         <br>
-                            <input type="text" name="" id="" value="{{storeItem.m_longitude}}">
+                            <input type="text" name="" id=" m_longitude"[ngModelOptions]="{standalone: true}" [(ngModel)] = "merchantModel2.m_longitude">
                         </label>
                     </div>
                 </div>
@@ -141,15 +146,15 @@
                     <div class="col1">
                         <label for=""><span>Address:</span>
                             <br>
-                            <input type="text" name="" id="" value="{{storeItem.m_address}}">
+                            <input type="text" name="" id="m_address" [ngModelOptions]="{standalone: true}" [(ngModel)] = "merchantModel2.m_address">
                         </label>
                     </div>
                 </div>
                 <div class="sub2_box2_row5">
-                    <input type="submit" name="" id="" value="Edit" class="sbt_btn">
+                    <input type="submit" name="" id="" value="Edit" class="sbt_btn" (click)="editMerchant2()">
                 </div>
                 </form>
-            </div>
+            </div> 
         </div>
 
     </div>

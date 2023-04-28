@@ -1,18 +1,25 @@
 <app-merchant-header></app-merchant-header>
 <div class="container">
-  <div class="head"><h1>Restaurant List</h1></div>
-  <div class="table_search">
-    <form action="">
-      <input type="search" name="" id="search_inp" class="search_box" placeholder="Search" [(ngModel)] = "userInp.search_inp" [ngModelOptions]="{standalone: true}">
-      <input type="submit" name="" id="" class="search_btn" value="Search" (click)="loadMerchatList1()">
-    </form>
+  <div class="head">
+    <div class="box1">
+      <form action="">
+        <div class="search_box">
+        <input type="search" name="" id="search_inp" class="search_box1" placeholder="Search" [(ngModel)] = "userInp.search_inp" [ngModelOptions]="{standalone: true}">
+        <button (click)="loadMerchatList1()" class="search-btn"><span class="material-symbols-outlined">search</span></button>
+        </div>
+      </form>
+    </div>
+    <div class="box2"><h1>Restaurants</h1></div>
+    <div class="box3"></div>
+    
   </div>
+  
   <div class="table-container">
     <table>
       <thead>
         <tr>
-          <th class="heading1">SI.No</th>
-          <th class="heading1">Restaurant Name</th>
+          <th class="heading1">#</th>
+          <th class="heading1">Name</th>
           <th class="heading1">Area</th>
           <th class="heading1">City</th>
           <th class="heading1">Category</th>
@@ -38,9 +45,9 @@
           <td>{{ merchantO.m_services }}</td>
           <td>{{ merchantO.m_status }}</td>
           <td>
-            <button (click)="goToAdminMerchantDeactive(merchantO)" class="action-btn">
+            <button (click)="goToAdminMerchantDeactive(merchantO)" class="action-btn" >
               <label class="switch">
-                <input type="checkbox" checked />
+                <input type="checkbox" checked id="store_status{{i}}">
                 <span class="slider round"></span>
               </label>
             </button>

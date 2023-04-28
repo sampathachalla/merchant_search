@@ -10,14 +10,14 @@ table {
 }
 .table-container {
   overflow: scroll;
-  width: 80vw;
-  height: 60vh;
-  margin-left: 5vw;
+  width: 70vw;
+  height: 80vh;
+  margin-left: 10vw;
 }
 
 td {
   border: 1px solid #dddddd;
-  text-align: left;
+  text-align: center;
   padding: 8px;
   font-size: 1vw;
 }
@@ -25,9 +25,9 @@ th {
   border: 2px solid #dddddd;
   text-align: center;
   color: white;
-  padding: 20px;
+  padding: 10px;
   box-sizing: border-box;
-  font-size: 1.54vw;
+  font-size: 1.25vw;
 }
 
 thead th {
@@ -40,7 +40,7 @@ thead th {
   outline: none;
   border: none;
   background-color: white;
-  font-size: 1.5vw;
+  font-size: 1.25vw;
   cursor: pointer;
   font-weight: 500;
 }
@@ -52,53 +52,73 @@ thead th {
 
 }
 
-/*Css for table starts here*/
+/*Css for table ends here*/
 
 /*Table heading css starts here*/
 .head {
-  height: 15vh;
+  height: 10vh;
   width: 90vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.5vw;
+  font-size: 1.1vw;
   color: #00203fff;
 }
 .heading1 {
   background-color: #e94b3cff;
 }
+.box1{
+  height: 10vh;
+  width: 30vw;
+  display: flex;
+  align-items: center;
+  padding-left: 5.15vw;
+}
+.box2{
+  height: 10vh;
+  width: 30vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.box3{
+  height: 10vh;
+  width: 30vw;
+  
+}
 
 /*Table heading css ends here*/
 
-.table_search{
-  height: 10vh;
-  width: 90vw;
-  display: flex;
-  align-items: center;
-}
+/*Search box css starts here*/
 .search_box{
   height: 5vh;
   width: 15vw;
-  margin-left: 5.5vw;
+  margin-left: 5vw;
   border-radius: 0.5vw;
   box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
   border: 1px solid rgb(207, 207, 207);
-  padding-left: 1vw;
-}
-placeholder{
-  font-size: 1.25vw;
-  color: red;
-}
-.search_btn{
-  height: 3vh;
-  width: 4vw;
-  margin-left: 0.5vw;
-  border-radius: 0.25vw;
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-  border: 1px solid rgb(207, 207, 207);
-  font-size: 1vw;
   background-color: white;
+  display: flex;
+  align-items: center;
 }
+.search_box1{
+  height: 4vh;
+  width: 12.5vw;
+  border: none;
+  outline: none;
+  margin-left: 0.5vw;
+}
+
+.search-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  color: #333;
+}
+/*Search box css ends here*/
 
 /*Css for slider starts here*/
 .switch {
