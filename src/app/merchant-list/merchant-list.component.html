@@ -31,7 +31,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let merchantO of merchantList; let i = index">
+        <tr *ngFor="let merchantO of merchantList; let i = index" >
           <td>{{i+1}}</td>
           <td>
             <button (click)="goToAdminMerchantDetails(merchantO)" class="store-btn">
@@ -47,7 +47,7 @@
           <td>
             <button (click)="goToAdminMerchantDeactive(merchantO)" class="action-btn" >
               <label class="switch">
-                <input type="checkbox" checked id="store_status{{i}}">
+                <input type="checkbox" checked >
                 <span class="slider round"></span>
               </label>
             </button>

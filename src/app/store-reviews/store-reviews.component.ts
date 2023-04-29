@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class StoreReviewsComponent {
 
   merchantID: string ="";
-  constructor(private route: ActivatedRoute,public menuService:UserServicesService,private router: Router) {
+  constructor(private route: ActivatedRoute,private menuService:UserServicesService,private router: Router) {
    // this.merchantID = this.route.snapshot.paramMap.get('id');
     this.route.params.subscribe((params) => {
       this.merchantID = params["merchantID"];
@@ -32,9 +32,20 @@ export class StoreReviewsComponent {
       "merchant_id":this.merchantID
     }
     this.menuService.merchantReviews(payLoad).subscribe((resp:any) =>{
-      console.log(resp);
-      this.merchantReviewDetails=resp.dataJ;
-      console.log(this.merchantReviewDetails);
+      
+      if(resp.statusCode == 200 && resp.message =="success")
+      {
+        console.log(resp);
+        this.merchantReviewDetails=resp.dataJ;
+      }
+      else{
+        alert(JSON.stringify(resp.info));
+      }
+    },
+      error => {
+        if (error.error.message = "Unauthorized") {
+          console.log("Unauthorized: " + error.error.message);
+        }
     });
 
   }

@@ -60,7 +60,7 @@ export class HomeComponent {
 
       }
       else {
-        alert(JSON.stringify(restResp));
+        alert(JSON.stringify(restResp.info));
       }
     },
       error => {

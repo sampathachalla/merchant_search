@@ -10,7 +10,7 @@ import { MerchantReviewModel } from 'src/models/login-model';
 })
 export class MerchantReviewsComponent {
 
-  constructor(public menuService:UserServicesService)
+  constructor(private menuService:UserServicesService)
   {
 
   }
@@ -27,8 +27,19 @@ export class MerchantReviewsComponent {
     }
     this.menuService.merchantReviews(payLoad).subscribe((resp:any) =>{
       console.log(resp);
-      console.log(resp.dataJ);
       this.merchantReviewList=resp.dataJ;
+      if(resp.statusCode == 200 && resp.message == "success"){
+        console.log(resp);
+        this.merchantReviewList=resp.dataJ;
+      }
+      else{
+        alert(JSON.stringify(resp.info));
+      }
+    },
+      error => {
+        if (error.error.message = "Unauthorized") {
+          console.log("Unauthorized: " + error.error.message);
+        }
       
     });
   }
@@ -42,7 +53,19 @@ export class MerchantReviewsComponent {
      "adminO": "1",
     }
     this.menuService.merchantReviews(payLoad).subscribe((resp:any) =>{
-      console.log(resp);
+    
+      if(resp.statusCode == 200 && resp.message == "success"){
+        console.log(resp);
+        alert(JSON.stringify("Review Approved"));
+      }
+      else{
+        alert(JSON.stringify(resp.info));
+      }
+    },
+      error => {
+        if (error.error.message = "Unauthorized") {
+          console.log("Unauthorized: " + error.error.message);
+        }
     });
     
   }
@@ -55,7 +78,18 @@ export class MerchantReviewsComponent {
      "adminO": "0",
     }
     this.menuService.merchantReviews(payLoad).subscribe((resp:any) =>{
-      console.log(resp);
+      if(resp.statusCode == 200 && resp.message == "success"){
+        console.log(resp);
+        alert(JSON.stringify("Review Rejected"));
+      }
+      else{
+        alert(JSON.stringify(resp.info));
+      }
+    },
+      error => {
+        if (error.error.message = "Unauthorized") {
+          console.log("Unauthorized: " + error.error.message);
+        }
     });
   }
 

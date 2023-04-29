@@ -10,7 +10,7 @@ import { MerchantAdminModel } from 'src/models/login-model';
 })
 export class MerchantUsersComponent {
 
-  constructor(public menuService:UserServicesService)
+  constructor(private menuService:UserServicesService)
   {
 
   }
@@ -26,9 +26,19 @@ export class MerchantUsersComponent {
       "op":"0"
     }
     this.menuService.merchantAdmins(payLoad).subscribe((resp:any) =>{
-      console.log(resp);
-      console.log(resp.dataJ);
-      this.merchantAdminList=resp.dataJ;
+      
+      if(resp.statusCode == 200 && resp.message == "success"){
+        console.log(resp);
+        this.merchantAdminList=resp.dataJ;
+      }
+      else{
+        alert(JSON.stringify(resp.info));
+      }
+    },
+      error => {
+        if (error.error.message = "Unauthorized") {
+          console.log("Unauthorized: " + error.error.message);
+        }
       
     });
   }

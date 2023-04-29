@@ -13,7 +13,7 @@ export class DetailsComponent {
   visible1: boolean=false;
 
   merchantID: string = "";
-  constructor(private route: ActivatedRoute,public menuService:UserServicesService) {
+  constructor(private route: ActivatedRoute,private UserServicesService:UserServicesService) {
    // this.merchantID = this.route.snapshot.paramMap.get('id');
     this.route.params.subscribe((params) => {
       this.merchantID = params["merchantID"];
@@ -23,7 +23,6 @@ export class DetailsComponent {
   }
   ngOnInit(){
     this.getMerchantDetails();
-    this.addUserReview();
   }
 
 
@@ -44,12 +43,24 @@ export class DetailsComponent {
       "user_rating": "",
       "user_review": ""
     }
-    this.menuService.userMerchantView(payLoad).subscribe((resp:any) =>{
+    this.UserServicesService.userMerchantView(payLoad).subscribe((resp:any) =>{
       console.log(resp);
-      this.userMerchantList=resp.dataJ[0];
-      this.userReviewList=resp.dataJ[1];
-      console.log(this.userMerchantList);
-      console.log(this.userReviewList);
+      if(resp.statusCode == 200 && resp.message == "success")
+      {
+        this.userMerchantList=resp.dataJ[0];
+        this.userReviewList=resp.dataJ[1];
+        console.log(this.userMerchantList);
+        console.log(this.userReviewList);
+      }
+      else{
+        alert(JSON.stringify(resp.info));
+      }
+    },
+    error => {
+      if (error.error.message = "Unauthorized") {
+        console.log("Unauthorized: " + error.error.message);
+      }
+      
       
     });
     
@@ -65,15 +76,15 @@ export class DetailsComponent {
       "user_rating": "3",
       "user_review": this.reviewModel.user_review
     }
-    this.menuService.userMerchantView(payLoad).subscribe((resp:any) =>{
+    this.UserServicesService.userMerchantView(payLoad).subscribe((resp:any) =>{
       console.log(resp);
-      if(resp.statusCode == 200 && resp.message == "success"&& resp.info == "valid"){
+      if(resp.statusCode == 200 && resp.message == "success"){
         console.log(resp)
-        alert(JSON.stringify(resp))
+        alert(JSON.stringify(resp.info))
       }
-      /*else{
-        alert(JSON.stringify(resp));
-      }*/
+      else{
+        alert(JSON.stringify(resp.info));
+      }
     },
     error => {
       if (error.error.message = "Unauthorized") {

@@ -60,7 +60,8 @@ export class MerchantStoreComponent {
 
   editMerchant1(){
     let editMenu={
-      "op":"1",
+      "op":"1a",
+      "M_ID":this.merchantID,
       "m_open_time":this.merchantModel.m_open_time,
       "m_specials":this.merchantModel.m_specials,
       "m_close_time":this.merchantModel.m_close_time,
@@ -76,7 +77,8 @@ export class MerchantStoreComponent {
     this.menuService.merchantRegistration(editMenu).subscribe((restResp: any) => {
       console.log('rest resp:',restResp)
       if(restResp.statusCode == 200 && restResp.message == "success"){
-        
+        console.log('Modification done successfully')
+        alert(JSON.stringify(restResp.info));
       }
       else{
         alert(JSON.stringify(restResp));
@@ -91,7 +93,8 @@ export class MerchantStoreComponent {
 
   editMerchant2(){
     let editMenu={
-      "op":"1",
+      "op":"1b",
+      "M_ID":this.merchantID,
       "m_street":this.merchantModel.m_street,
       "m_area":this.merchantModel.m_area,
       "m_city":this.merchantModel.m_city,
@@ -101,6 +104,21 @@ export class MerchantStoreComponent {
       "m_address":this.merchantModel.m_address
     }
     console.log(editMenu)
+    this.menuService.merchantRegistration(editMenu).subscribe((restResp: any) => {
+      console.log('rest resp:',restResp)
+      if(restResp.statusCode == 200 && restResp.message == "success"){
+        console.log('Modification done successfully')
+        alert(JSON.stringify(restResp.info));
+      }
+      else{
+        alert(JSON.stringify(restResp));
+      }
+    },
+      error => {
+        if (error.error.message = "Unauthorized") {
+          console.log("Unauthorized: " + error.error.message);
+        }
+      });
   }
 
   goToAdminMerchantReviews(merchantObject:any){

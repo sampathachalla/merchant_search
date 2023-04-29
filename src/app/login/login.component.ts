@@ -34,14 +34,14 @@ export class LoginComponent {
     }
     this.UserServicesService.customerLoginService(payloadMenu).subscribe((restResp: any) => {
       console.log('rest resp:',restResp)
-      if(restResp.statusCode == 200 && restResp.message == "success"&& restResp.info == "valid"){
+      if(restResp.statusCode == 200 && restResp.message == "success"){
         console.log(restResp)
         let lJosn = {"user_id":this.loginModel.user_id}
         localStorage.setItem('__CC__', JSON.stringify(lJosn));
         this.router.navigate(['/merchant-register']);
       }
       else{
-        alert(JSON.stringify(restResp));
+        alert(JSON.stringify(restResp.info));
       }
     },
       error => {

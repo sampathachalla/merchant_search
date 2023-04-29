@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class MerchantListComponent {
   // my code
-  constructor(public menuService:UserServicesService,private router: Router)
+  constructor(private UserServicesService:UserServicesService,private router: Router)
   {
     this.userInp = new adminMerchantList
   }
@@ -23,14 +23,28 @@ export class MerchantListComponent {
   userInp:any;
   merchantList:any;
   merchantList1:any;
+  isChecked:any;
+  id:any;
   loadMerchatList(){
     //this.demo=new ResultModel();
     var payLoad={
       "op":"0"
     }
-    this.menuService.adminMerchantList(payLoad).subscribe((resp:any) =>{
-      console.log(resp);
-      this.merchantList=resp.dataJ;
+    this.UserServicesService.adminMerchantList(payLoad).subscribe((resp:any) =>{
+      
+      if(resp.statusCode == 200 && resp.message == "success"){
+        console.log(resp);
+        this.merchantList=resp.dataJ;
+      }
+      else{
+        alert(JSON.stringify(resp.info));
+      }
+    },
+      error => {
+        if (error.error.message = "Unauthorized") {
+          console.log("Unauthorized: " + error.error.message);
+        }
+      
     });
   }
 
@@ -40,9 +54,20 @@ export class MerchantListComponent {
       "op":"2",
       "search_inp":this.userInp.search_inp
     }
-    this.menuService.adminMerchantList(payLoad).subscribe((resp:any) =>{
-      console.log(resp);
-      this.merchantList=resp.dataJ;
+    this.UserServicesService.adminMerchantList(payLoad).subscribe((resp:any) =>{
+      if(resp.statusCode == 200 && resp.message == "success"){
+        console.log(resp);
+        this.merchantList=resp.dataJ;
+      }
+      else{
+        alert(JSON.stringify(resp.info));
+      }
+    },
+      error => {
+        if (error.error.message = "Unauthorized") {
+          console.log("Unauthorized: " + error.error.message);
+        }
+      
     });
   }
 
@@ -59,10 +84,37 @@ export class MerchantListComponent {
      "M_ID": merchantObject1.M_ID,
      "admin_m_status": merchantObject1.m_status,
     }
-    this.menuService.merchantRegistration(payLoad).subscribe((resp:any) =>{
-      console.log(resp);
+    this.UserServicesService.merchantRegistration(payLoad).subscribe((resp:any) =>{
+      
+      if(resp.statusCode == 200 && resp.message == "success"){
+        console.log(resp.info)
+        alert(JSON.stringify(resp.info));
+      }
+      else{
+        alert(JSON.stringify(resp.info));
+      }
+    },
+      error => {
+        if (error.error.message = "Unauthorized") {
+          console.log("Unauthorized: " + error.error.message);
+        }
     });
   }
+
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+
+
   
 
   

@@ -45,16 +45,14 @@ export class MerchantregistrationComponent {
 
     this.UserServicesService.merchantRegistration(payloadMenu).subscribe((restResp: any) => {
       console.log('rest resp:',restResp)
-      if(restResp.statusCode == 200 && restResp.message == "success"&& restResp.info == "valid"){
+      if(restResp.statusCode == 200 && restResp.message == "success"){
         console.log(restResp)
-        /*this.tokensJson = JSON.parse(JSON.stringify(restResp.d_json[0]))
-        this.tokensJson["userId"] = restResp.userInfo[0].userId;
-        localStorage.setItem('_YBCALS_', JSON.stringify(this.tokensJson));*/
+        alert(JSON.stringify(restResp.info));
         this.router.navigate(['/merchant-list']);
-       //this.router.navigate([GlobalVariables.urlRTH_RTA_N + '/home']);
+       
       }
       else{
-        alert(JSON.stringify(restResp));
+        alert(JSON.stringify(restResp.info));
       }
     },
       error => {

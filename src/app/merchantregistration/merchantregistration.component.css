@@ -26,6 +26,7 @@
     width: 70vw;
     display: flex;
     margin-left: 5vw;
+    position: relative;
 }
 .row5{
     height: 10vh;
@@ -33,6 +34,7 @@
     display: flex;
     align-items: center;
     margin-left: 5vw;
+    position: relative;
     
 }
 .col{
@@ -49,6 +51,8 @@
     outline: none;
     border: 2px solid rgb(207, 207, 207);
     padding-left: 1vw;
+    transition: all .3s;
+    font-size: 1.2vw;
 }
 .row5_col1{
     height: 10vh;
@@ -67,6 +71,7 @@
     outline: none;
     margin-left: 0.75vw;
 }
+
 
 
 
@@ -112,3 +117,165 @@
     box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
     /*border: 3px solid rgb(207, 207, 207);*/
 }
+
+/*css for labels start here*/
+.col1_lb{
+    position: absolute;
+    left: 2vw;
+    top: 3vh;
+    transition: all 0.4s;
+    padding: 0 2px;
+    font-size: 1.5vw;
+    color: gray;
+}
+.col1_lb::before{
+    content: "";
+    height: 5px;
+    position: absolute;
+    left: 100px;
+    top: 10px;
+    width: 100%;
+    z-index: -1;
+}
+
+.col input:focus{
+    border: 2px solid #e94b3cff;
+}
+.col input:focus+.col1_lb,.filled{
+    top: 0.2vh;
+    left: 1.5vw;
+    color: #e94b3cff;
+    font-size: 1.1vw;
+    background-color: white;
+}
+.col input::placeholder{
+    font-size: 16px;
+    opacity: 0;
+    transition: all .3s;
+}
+.col input:focus::placeholder{
+    opacity: 1;
+    animation-delay: 0.2s;
+}
+
+
+.col2_lb{
+    position: absolute;
+    left: 19vw;
+    top: 3vh;
+    transition: all 0.4s;
+    padding: 0 2px;
+    font-size: 1.5vw;
+    color: gray;
+}
+.col2_lb::before{
+    content: "";
+    height: 5px;
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 100%;
+    z-index: -1;
+}
+.col input:focus+.col2_lb,.filled{
+    top: 0.2vh;
+    left: 18.5vw;
+    color: #e94b3cff;
+    font-size: 1.1vw;
+    background-color: white;
+}
+
+.col3_lb{
+    position: absolute;
+    left: 36vw;
+    top: 3vh;
+    transition: all 0.4s;
+    padding: 0 2px;
+    font-size: 1.5vw;
+    color: gray;
+}
+.col3_lb::before{
+    content: "";
+    height: 5px;
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 100%;
+    z-index: -1;
+}
+.col input:focus+.col3_lb,.filled{
+    top: 0.2vh;
+    left: 35.5vw;
+    color: #e94b3cff;
+    font-size: 1.1vw;
+    background-color: white;
+}
+
+
+.col4_lb{
+    position: absolute;
+    left: 53vw;
+    top: 3vh;
+    transition: all 0.4s;
+    padding: 0 2px;
+    font-size: 1.5vw;
+    color: gray;
+}
+.col4_lb::before{
+    content: "";
+    height: 5px;
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 100%;
+    z-index: -1;
+}
+.col input:focus+.col4_lb,.filled{
+    top: 0.2vh;
+    left: 52.5vw;
+    color: #e94b3cff;
+    font-size: 1.1vw;
+    background-color: white;
+}
+
+/*css for address label*/
+.col5_lb{
+    position: absolute;
+    left: 2vw;
+    top: 3vh;
+    transition: all 0.4s;
+    padding: 0 2px;
+    font-size: 1.5vw;
+    color: gray;
+}
+.col5_lb::before{
+    content: "";
+    height: 5px;
+    position: absolute;
+    left: 100px;
+    top: 10px;
+    width: 100%;
+    z-index: -1;
+}
+
+.row5_col1 input:focus{
+    border: 2px solid #e94b3cff;
+}
+.row5_col1 input:focus+.col5_lb,.filled{
+    top: 0.2vh;
+    left: 1.3vw;
+    color: #e94b3cff;
+    font-size: 1.1vw;
+    background-color: white;
+}
+.row5_col1 input::placeholder{
+    font-size: 16px;
+    opacity: 0;
+    transition: all .3s ;
+}
+.row5_col1 input:focus::placeholder{
+    opacity: 1;
+    animation-delay: 0.2s;
+}
+
+/*css for labels end here*/
