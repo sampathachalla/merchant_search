@@ -1,6 +1,5 @@
 
-<app-header></app-header>
-<ng-container>
+<!--<app-header></app-header>-->
     <div class="display_box">
         <div class="display_box1">
             <div class="display_box1_col1">
@@ -18,8 +17,7 @@
                 <img src="assets/pic1.jpg" alt="">
             </div>
         </div>
-        <div *ngFor="let menuItem of userMerchantList; let i=index"  >
-        <div class="display_box2">
+        <div class="display_box2" *ngFor="let menuItem of userMerchantList; let i=index" >
             <div class="display_box2_row1">
                 <div class="display_box2_row1_col1">
                     <span>
@@ -59,7 +57,6 @@
             
             </div>
         </div>
-        </div>
         <div class="display_box3">
             <div class="display_box3_row3">
                 <button (click)="review_click()">Add Review</button>
@@ -96,8 +93,7 @@
             </div>
             
             <div class="display_box3_row2">
-                <div *ngFor="let menuItem of userReviewList; let i=index"  >
-                <div class="review_box">
+                <div class="review_box" *ngFor="let menuItem of userReviewList; let i=index" >
                     <div class="review_box1">{{menuItem.user_name}}</div>
                     <div class="review_box2">
                         <span class="material-symbols-outlined">star</span>
@@ -113,7 +109,6 @@
                         <div class="review_box3_pic"></div>
                     </div>
                 </div>
-                </div>
                  
                 
                 
@@ -123,4 +118,4 @@
         
     </div>
     
-</ng-container>
+

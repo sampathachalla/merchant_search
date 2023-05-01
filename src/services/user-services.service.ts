@@ -23,7 +23,7 @@ export class UserServicesService {
       );
   }
   
-private endpoint_menuSearch="/customer/home_search"
+private endpoint_menuSearch="/customer/search"
 menuSearch(pL:any) {
 
   return this.http

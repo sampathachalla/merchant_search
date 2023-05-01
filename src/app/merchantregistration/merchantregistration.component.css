@@ -127,6 +127,7 @@
     padding: 0 2px;
     font-size: 1.5vw;
     color: gray;
+    opacity: 0;
 }
 .col1_lb::before{
     content: "";
@@ -147,15 +148,12 @@
     color: #e94b3cff;
     font-size: 1.1vw;
     background-color: white;
+    opacity: 1;
 }
 .col input::placeholder{
     font-size: 16px;
-    opacity: 0;
-    transition: all .3s;
-}
-.col input:focus::placeholder{
     opacity: 1;
-    animation-delay: 0.2s;
+    transition: all .3s;
 }
 
 
@@ -167,6 +165,7 @@
     padding: 0 2px;
     font-size: 1.5vw;
     color: gray;
+    opacity: 0;
 }
 .col2_lb::before{
     content: "";
@@ -183,6 +182,7 @@
     color: #e94b3cff;
     font-size: 1.1vw;
     background-color: white;
+    opacity: 1;
 }
 
 .col3_lb{
@@ -193,6 +193,7 @@
     padding: 0 2px;
     font-size: 1.5vw;
     color: gray;
+    opacity: 0;
 }
 .col3_lb::before{
     content: "";
@@ -209,6 +210,7 @@
     color: #e94b3cff;
     font-size: 1.1vw;
     background-color: white;
+    opacity: 1;
 }
 
 
@@ -220,6 +222,7 @@
     padding: 0 2px;
     font-size: 1.5vw;
     color: gray;
+    opacity: 0;
 }
 .col4_lb::before{
     content: "";
@@ -236,6 +239,7 @@
     color: #e94b3cff;
     font-size: 1.1vw;
     background-color: white;
+    opacity: 1;
 }
 
 /*css for address label*/
@@ -247,6 +251,7 @@
     padding: 0 2px;
     font-size: 1.5vw;
     color: gray;
+    opacity: 0;
 }
 .col5_lb::before{
     content: "";
@@ -267,15 +272,7 @@
     color: #e94b3cff;
     font-size: 1.1vw;
     background-color: white;
-}
-.row5_col1 input::placeholder{
-    font-size: 16px;
-    opacity: 0;
-    transition: all .3s ;
-}
-.row5_col1 input:focus::placeholder{
     opacity: 1;
-    animation-delay: 0.2s;
 }
 
 /*css for labels end here*/

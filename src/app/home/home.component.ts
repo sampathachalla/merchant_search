@@ -11,52 +11,38 @@ import { UserServicesService } from 'src/services/user-services.service';
 export class HomeComponent {
 
 
-  //hiding info box
-  /*constructor(public menuService:UserServicesService)
-  {
-
-  }
-  visible4:boolean = false
-  visible5:boolean = false
-  demo:any;
-  ngOnInit(){
-    /*throw new Error('Method not implemented.');*/
-  /* this.demo=new ResultModel();
-   var payLoad={
-     "search":""
-   }
-   this.menuService.menuSearch(payLoad).subscribe((resp:any) =>{
-     console.log(resp);
-     this.demo=resp;
-   })
-
- }*/
-
-  //my code for search api integration
-
   constructor(private router: Router, private userServicesService: UserServicesService) {
     this.resultModel = new ResultModel
   }
 
   ngOnInit(): void {
-
+     this. getCurrentLocation();
   }
 
 
   resultModel: any;
   tokenJson: any;
-  demo: any;
+  merchantList: any;
   merchantSearch() {
     console.log(this.resultModel);
     let payloadMenu = {
-      "sname": this.resultModel.sname
+      "sname": this.resultModel.sname,
+      "userLat":this.currLat,
+      "userLong":this.currLng
     }
+    console.log(payloadMenu);
+    console.log(this.searchDistance);
+    console.log(this.searchRating);
+    console.log(this.searchPrice);
+    console.log(this.searchCategories);
+    console.log(this.searchCusine);
+    console.log(this.searchService);
 
     this.userServicesService.menuSearch(payloadMenu).subscribe((restResp: any) => {
       console.log('rest resp:', restResp)
       if (restResp.statusCode == 200 && restResp.message == "success") {
         console.log(restResp.info)
-        this.demo = restResp.info
+        this.merchantList = restResp.dataJ
 
       }
       else {
@@ -79,6 +65,33 @@ export class HomeComponent {
 
   goToMerchantDetails(merchantObject:any){
     this.router.navigate(['/display'+"/"+merchantObject.M_ID]);
+  }
+
+  currLat:any;currLng:any
+  getCurrentLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+
+        this.currLat = position.coords.latitude;
+        this.currLng = position.coords.longitude;
+        console.log("LAt: "+this.currLat+"   Lng:"+this.currLng);
+      });
+    }
+    else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  }
+
+
+  searchDistance:number = 0;
+  searchRating:number = 0;
+  searchCusine:string = "";
+  searchPrice:number = 0;
+  searchCategories:string = "";
+  searchService:string ="";
+
+  searchBasedOnFilters(){
+  console.log(this.searchDistance);
   }
 
 

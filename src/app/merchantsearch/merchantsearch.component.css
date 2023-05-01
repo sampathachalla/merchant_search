@@ -1,6 +1,6 @@
 .body_box{
     background-color: #00203fff;
-    height: 100vh;
+    height: 90vh;
     width: 100vw;
     display: flex;
     align-items: center;
@@ -14,15 +14,33 @@
     width: 90vw;
     height: 20vh;
     display: flex;
-    align-items: end;
+    align-items: center;
     justify-content: center;
+    margin-right: 10vw;
 }
-.logo_box img{
-    height: 7vh;
-    width: 35vw;
+.logo_box_col1{
+    height: 10vh;
+    width: 15vw;
+    display: flex;
+    align-items: center;
+    font-size: 1.75vw;
+    font-weight: 800;
+    justify-content: flex-end;
+    margin-right: 0.4vw;
+    color: #e94b3cff;
+}
+.logo_box_col2{
+    height: 10vh;
+    width: 15vw;
+    display: flex;
+    align-items: center;
+    font-size: 1.75vw;
+    font-weight: 800;
+    color: whitesmoke;
+    margin-right: 2.5vw;
 }
 .search_box{
-    height: 15vh;
+    height: 10vh;
     align-items: flex-start;
     justify-content: center;
     display: flex;
@@ -30,8 +48,8 @@
 
 }
 .search_bar{
-    width: 60vw;
-    height: 11vh;
+    width: 40vw;
+    height: 8vh;
     background: rgba(255,255,255,0.2);
     display: flex;
     border-radius: 60px;
@@ -40,8 +58,8 @@
     
 }
 .search_bar input{
-    width: 50vw;
-    height: 11vh;
+    width: 40vw;
+    height: 8vh;
     background: transparent;
     border: 0;
     flex: 1;
@@ -75,3 +93,42 @@
     color: white;
 
 }
+
+/*Css for restaurants logos starts here*/
+.store_box{
+    height: 17vh;
+    width: 30vw;
+    background-color: red;
+    margin-left: 31vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.store_box_col{
+    height: 16vh;
+    width: 8vw;
+    background-color: aqua;
+    border: 1px solid;
+}
+.store_logo{
+    height: 10vh;
+    width: 7vw;
+    background-color: aquamarine;
+    margin-left: 0.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.store_logo_img{
+    height: 8vh;
+    width: 4vw;
+    background-color: aliceblue;
+    border-radius: 50%;
+}
+.store_name{
+    height: 6vh;
+    width: 7vw;
+    background-color: blue;
+    margin-left: 0.5vw;
+}
+/*Css for restaurants logos ends here*/

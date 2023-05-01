@@ -50,4 +50,59 @@ export class StoreReviewsComponent {
 
   }
 
+
+  goToAdminReviewAccept(merchantObject1:any){
+    console.log(merchantObject1.merchant_id,merchantObject1.t_s)
+    var payLoad={
+      "op": "2",
+     "merchant_id": merchantObject1.merchant_id,
+     "review_id": merchantObject1.t_s,
+     "adminO": "1",
+    }
+    this.menuService.merchantReviews(payLoad).subscribe((resp:any) =>{
+    
+      if(resp.statusCode == 200 && resp.message == "success"){
+        console.log(resp);
+        alert(JSON.stringify("Review Approved"));
+      }
+      else{
+        alert(JSON.stringify(resp.info));
+      }
+    },
+      error => {
+        if (error.error.message = "Unauthorized") {
+          console.log("Unauthorized: " + error.error.message);
+        }
+    });
+    
+  }
+
+  goToAdminReviewReject(merchantObject2:any){
+    console.log(merchantObject2.merchant_id,merchantObject2.t_s)
+    var payLoad={
+      "op": "2",
+     "merchant_id": merchantObject2.merchant_id,
+     "review_id": merchantObject2.t_s,
+     "adminO": "0",
+    }
+    this.menuService.merchantReviews(payLoad).subscribe((resp:any) =>{
+      if(resp.statusCode == 200 && resp.message == "success"){
+        console.log(resp);
+        alert(JSON.stringify("Review Rejected"));
+      }
+      else{
+        alert(JSON.stringify(resp.info));
+      }
+    },
+      error => {
+        if (error.error.message = "Unauthorized") {
+          console.log("Unauthorized: " + error.error.message);
+        }
+    });
+  }
+
+
+
+
+
 }

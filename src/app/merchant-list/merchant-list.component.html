@@ -45,12 +45,20 @@
           <td>{{ merchantO.m_services }}</td>
           <td>{{ merchantO.m_status }}</td>
           <td>
-            <button (click)="goToAdminMerchantDeactive(merchantO)" class="action-btn" >
+            <div >
+              <span *ngIf="merchantO.m_status == 'active'"> 
               <label class="switch">
-                <input type="checkbox" checked >
+                  <input type="checkbox" checked id="S-{{merchantO.M_ID}}"  (click)="goToAdminMerchantDeactive(merchantO)">
                 <span class="slider round"></span>
               </label>
-            </button>
+            </span>
+            <span *ngIf="merchantO.m_status == 'deactive'"> 
+              <label class="switch">
+                  <input type="checkbox"  id="S-{{merchantO.M_ID}}"  (click)="goToAdminMerchantDeactive(merchantO)">
+                <span class="slider round"></span>
+              </label>
+            </span>
+            </div>
           </td>
         </tr>
       </tbody>

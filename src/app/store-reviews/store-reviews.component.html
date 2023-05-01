@@ -15,15 +15,32 @@
           <th>Rating</th>
           <th>User Id</th>
           <th>Status</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tr *ngFor="let merchantO of merchantReviewDetails; let i = index">
         <td>{{ i + 1 }}</td>
-        <td class="review" >{{ merchantO.user_review }}</td>
+        <td class="review">{{ merchantO.user_review }}</td>
         <td class="date">{{ merchantO.review_date }}</td>
         <td class="rating">{{ merchantO.user_rating }}</td>
         <td class="user">{{ merchantO.user_id }}</td>
         <td class="status">{{ merchantO.review_status }}</td>
+        <td class="action">
+          <div class="act">
+            <button
+              (click)="goToAdminReviewAccept(merchantO)"
+              class="accept-btn"
+            >
+              <span class="material-symbols-outlined">done</span>
+            </button>
+            <button
+              (click)="goToAdminReviewReject(merchantO)"
+              class="reject-btn"
+            >
+              <span class="material-symbols-outlined">close</span>
+            </button>
+          </div>
+        </td>
       </tr>
     </table>
   </div>

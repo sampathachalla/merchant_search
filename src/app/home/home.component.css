@@ -37,13 +37,21 @@
     
 }
 /* filters component css*/
-.filters{
+form{
     width: 100%;
     height: 10vh;
     display: flex;
     align-items:flex-start;
     justify-content:center;
     background-color: transparent;
+    position: relative;
+}
+.filters{
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    align-items:flex-start;
+    justify-content:center;
     position: relative;
     top: -2vh;
 }
@@ -110,6 +118,7 @@
     padding: 0.5rem;
 }
 
+
 .select-btn {
     display: flex;
     align-items: center;
@@ -136,36 +145,11 @@
     justify-self: center;
 }
 
-/* Filters drop down menu css start here*/
 
-
-.menu_box4{
-    height: 10%;
-    z-index: 1000;
-    width: 7%;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.5rem;
-    background-color: red;
-    left: 34.25vw;
-    
-}
-.menu_box5{
-    height: 10%;
-    width: 7%;    
-    z-index: 1000;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.5rem;
-    background-color: red;
-    left: 42vw;
-    
-}
 /* Filters drop down menu css end here*/
+
+/*select input css starts here*/
+/*select input css ends here*/
 
 /*select drop down css starts here*/
 a,
@@ -271,7 +255,6 @@ button{
     position: relative;
     top: -4vh; 
     padding-left: 1.5vw;
-    overflow: scroll;
     z-index: 200;
     margin-left: 5vw;
     

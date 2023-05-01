@@ -78,16 +78,16 @@ export class MerchantListComponent {
 
   
   goToAdminMerchantDeactive(merchantObject1:any){
-    console.log(merchantObject1.M_ID)
+    console.log("goToAdminMerchantDeactive")
     var payLoad={
       "op": "2",
      "M_ID": merchantObject1.M_ID,
      "admin_m_status": merchantObject1.m_status,
     }
     this.UserServicesService.merchantRegistration(payLoad).subscribe((resp:any) =>{
-      
+      console.log(resp.info)
       if(resp.statusCode == 200 && resp.message == "success"){
-        console.log(resp.info)
+      
         alert(JSON.stringify(resp.info));
       }
       else{

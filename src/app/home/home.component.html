@@ -28,22 +28,22 @@
                     </div>
                 </div>
                 <div class="filters">
+                    <form action="">
                     <div class="col1">
-                        <!--<button (click)="onclick1()" type="button"><div class="select-btn"> 
-                            <span class="btn-text">Distance</span>
-                            <span class="material-symbols-outlined" id="arrow-dwn">expand_more</span>
-                        </div> </button>-->
+                        
                         <div class="drop_menu">
-                            <button class="demo">
+                            <!-- <button class="demo">
                                 <span class="btn-text">Distance</span>
                                 <span class="material-symbols-outlined" id="arrow-dwn">expand_more</span>
-                            </button>
-                            <ul>
-                                <li><a href="#">5 Km</a></li>
-                                <li><a href="#">10 Km</a></li>
-                                <li><a href="#">15 Km</a></li>
-                                <li><a href="#">20 Km</a></li>
-                              </ul>
+                            </button>-->
+                            
+                              <select name="distance" id="ft_distance" [(ngModel)]="searchDistance">
+                                <option value=5>5 Km</option>
+                                <option value=10>10 Km</option>
+                                <option value=15>15 Km</option>
+                                <option value=20> > 20 Km</option>
+                              </select>
+                            
                           </div>
                         
 
@@ -51,12 +51,9 @@
                     
                     
                     <div class="col2">
-                        <!--<button (click)="onclick2()" type="button"><div class="select-btn"> 
-                            <span class="btn-text">Rating</span>
-                            <span class="material-symbols-outlined" id="arrow-dwn">expand_more</span>
-                        </div></button>-->
+                        
                         <div class="drop_menu">
-                            <button class="demo">
+                            <!--<button class="demo">
                                 <span class="btn-text">Ratings</span>
                                 <span class="material-symbols-outlined" id="arrow-dwn">expand_more</span>
                             </button>
@@ -66,17 +63,23 @@
                                 <li><a href="#">3-star</a></li>
                                 <li><a href="#">4-star</a></li>
                                 <li><a href="#">5-star</a></li>
-                              </ul>
+                              </ul>-->
+                              <label for="">
+                              <select name="ratings" id="ft_rating" [(ngModel)]="searchRating">
+                                <option value=1>1-Star</option>
+                                <option value=2>2-Star</option>
+                                <option value=3>3-Star</option>
+                                <option value=4>4-Star</option>
+                                <option value=5>5-star</option>
+                              </select>
+                            </label>
                           </div>
 
                     </div>
                     <div class="col3">
-                        <!--<button (click)="onclick3()" type="button"><div class="select-btn"> 
-                            <span class="btn-text">Price</span>
-                            <span class="material-symbols-outlined" id="arrow-dwn">expand_more</span>
-                        </div></button>-->
+                        
                         <div class="drop_menu">
-                            <button class="demo">
+                            <!--<button class="demo">
                                 <span class="btn-text">Price</span>
                                 <span class="material-symbols-outlined" id="arrow-dwn">expand_more</span>
                             </button>
@@ -86,16 +89,22 @@
                                 <li><a href="#">800-1200</a></li>
                                 <li><a href="#">1200-1600</a></li>
                                 <li><a href="#">1600-2000</a></li>
-                              </ul>
+                              </ul>-->
+                              <label for="">
+                              <select name="price" id="ft_price" [(ngModel)]="searchPrice">
+                                <option value=100>₹ 100</option>
+                                <option value=300>₹ 300</option>
+                                <option value=500>₹ 500</option>
+                                <option value=1000>₹ 1000</option>
+                                <option value=1500>₹ 1500</option>
+                              </select>
+                            </label>
                           </div>
                     </div>
                     <div class="col4">
-                        <!--<button (click)="onclick4()" type="button"><div class="select-btn"> 
-                            <span class="btn-text">Services</span>
-                            <span class="material-symbols-outlined" id="arrow-dwn">expand_more</span>
-                        </div></button>-->
+                        
                         <div class="drop_menu">
-                            <button class="demo">
+                            <!--<button class="demo">
                                 <span class="btn-text">Services</span>
                                 <span class="material-symbols-outlined" id="arrow-dwn">expand_more</span>
                             </button>
@@ -104,16 +113,21 @@
                                 <li><a href="#">Dine-in</a></li>
                                 <li><a href="#">Delivery</a></li>
                                 <li><a href="#">Buffet</a></li>
-                              </ul>
+                              </ul>-->
+                              <label for="">
+                              <select name="service" id="ft_service" [(ngModel)]="searchService">
+                                <option value="dine-in">Dine-In</option>
+                                <option value="takeaway">Take Away</option>
+                                <option value="delivery">Delivery</option>
+                                <option value="buffet">Buffet</option>
+                              </select>
+                            </label>
                           </div>
                     </div>
                     <div class="col5">
-                        <!--<button (click)="onclick5()" type="button"><div class="select-btn"> 
-                            <span class="btn-text">Cusines</span>
-                            <span class="material-symbols-outlined" id="arrow-dwn">expand_more</span>
-                        </div></button>-->
+                        
                         <div class="drop_menu">
-                            <button class="demo">
+                            <!--<button class="demo">
                                 <span class="btn-text">Cusines</span>
                                 <span class="material-symbols-outlined" id="arrow-dwn">expand_more</span>
                             </button>
@@ -124,16 +138,23 @@
                                 <li><a href="#">Italian</a></li>
                                 <li><a href="#">Arbian</a></li>
                                 <li><a href="#">Desserts</a></li>
-                              </ul>
+                              </ul>-->
+                              <label for="">
+                              <select name="cusines" id="ft_cusine" [(ngModel)]="searchCusine">
+                                <option value="south">South Indian</option>
+                                <option value="north">North Indian</option>
+                                <option value="chinese">Chinese</option>
+                                <option value="italian">Italian</option>
+                                <option value="arabic">Arabian</option>
+                                <option value="deserts">Deserts</option>
+                              </select>
+                            </label>
                           </div>
                     </div>
                     <div class="col6">
-                        <!--<button (click)="onclick6()" type="button"><div class="select-btn"> 
-                            <span class="btn-text">Categories</span>
-                            <span class="material-symbols-outlined" id="arrow-dwn">expand_more</span>
-                        </div></button>-->
+                        
                         <div class="drop_menu">
-                            <button class="demo">
+                            <!--<button class="demo">
                                 <span class="btn-text">Categories</span>
                                 <span class="material-symbols-outlined" id="arrow-dwn">expand_more</span>
                             </button>
@@ -141,13 +162,20 @@
                                 <li><a href="#">Veg</a></li>
                                 <li><a href="#">Non-Veg</a></li>
                                 <li><a href="#">All</a></li>
-                              </ul>
+                              </ul>-->
+                              <label for="">
+                              <select name="category" id="ft_category" [(ngModel)]="searchCategories">
+                                <option value="veg" >Veg</option>
+                                <option value="non veg">Non-Veg</option>
+                              </select>
+                            </label>
                           </div>
                     </div>
+                </form>
                 </div>
                 <div class="display">
                     <ng-container >
-                        <div *ngFor="let menuItem of demo; let i=index"  style="display: inline-flex;" >
+                        <div *ngFor="let menuItem of merchantList; let i=index"  style="display: inline-flex;" >
                         <div class="result_box1" (click)=" goToMerchantDetails(menuItem)">
                             <button (click)="display_click()" class="result_button"><div class="r1">
                                 <div class="r1_pic">
@@ -170,11 +198,11 @@
                                 </div>
                                 <div class="r2_box2">
                                     <div class="r2_c1">
-                                        <span class="info_box">Arbian, North Indian, Desserts...</span>
+                                        <span class="info_box">{{menuItem.m_cusines}}</span>
                                     </div>
                                     <div class="r2_c2">
                                         <div class="box_distance">
-                                            <span>{{menuItem.m_distance}}</span>
+                                            <span>{{menuItem.distance_cal}}</span>
                                             <span class="material-symbols-outlined" id="dist_icon">distance</span>
                                         </div>
                                     </div>
@@ -183,7 +211,7 @@
                             <hr>  
                             </div>
                             <div class="r3">
-                                <span class="info_box">Indira nagar,gachibowli,hyderabad</span>
+                                <span class="info_box">{{menuItem.m_area}},{{menuItem.m_city}}</span>
                                 
                             </div>
                             

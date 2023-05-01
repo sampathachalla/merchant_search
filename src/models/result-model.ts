@@ -5,4 +5,6 @@ export class ResultModel{
     m_distance: string='';
     m_rating: string=''; 
     "sname":"";
+    "userLat":"";
+    "userLong":"";
 }
