@@ -73,11 +73,14 @@ export class DetailsComponent {
       "M_ID":this.merchantID,
       "user_id": this.reviewModel.user_id,
       "user_name": this.reviewModel.user_name,
-      "user_rating": "3",
+      "user_rating":this.reviewModel.user_rating,
       "user_review": this.reviewModel.user_review
     }
+    console.log(payLoad)
+    
     this.UserServicesService.userMerchantView(payLoad).subscribe((resp:any) =>{
       console.log(resp);
+
       if(resp.statusCode == 200 && resp.message == "success"){
         console.log(resp)
         alert(JSON.stringify(resp.info))

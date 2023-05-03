@@ -17,8 +17,9 @@
                         <option value="">vskp</option>
                         <option value="">hyd</option>
                     </select>
-                    <input type="search" placeholder="Search">
-                    <button type="submit">
+                    <input type="search" placeholder="Search" id="user_inp" [(ngModel)] = "filterModel.user_inp" [ngModelOptions]="{standalone: true}">
+                    
+                    <button type="submit" (click)="userSearch(filterModel.user_inp)">
                         <span class="material-symbols-outlined">
                             search
                         </span>

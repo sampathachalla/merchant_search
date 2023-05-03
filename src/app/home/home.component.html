@@ -18,7 +18,7 @@
                                     <option value="" >vskp</option>
                                     <option value="" >hyd</option>
                                 </select>
-                                <input type="search" placeholder="Search" id="sname"  [(ngModel)] = "resultModel.sname" [ngModelOptions]="{standalone: true}">
+                                <input type="search" placeholder="Search" id="sname"  [(ngModel)] = "filterModel.user_inp" [ngModelOptions]="{standalone: true}">
                                 
                                 <button type="submit"  (click)="merchantSearch()">
                                     <span class="material-symbols-outlined">search</span>
@@ -36,13 +36,15 @@
                                 <span class="btn-text">Distance</span>
                                 <span class="material-symbols-outlined" id="arrow-dwn">expand_more</span>
                             </button>-->
-                            
-                              <select name="distance" id="ft_distance" [(ngModel)]="searchDistance">
+                            <div class="select_box">
+                                <span>Distance</span>
+                              <select name="distance" id="ft_distance" [(ngModel)]="searchDistance" >
                                 <option value=5>5 Km</option>
                                 <option value=10>10 Km</option>
                                 <option value=15>15 Km</option>
                                 <option value=20> > 20 Km</option>
                               </select>
+                            </div>
                             
                           </div>
                         
@@ -64,7 +66,8 @@
                                 <li><a href="#">4-star</a></li>
                                 <li><a href="#">5-star</a></li>
                               </ul>-->
-                              <label for="">
+                              <div class="select_box">
+                                <span>Rating</span>
                               <select name="ratings" id="ft_rating" [(ngModel)]="searchRating">
                                 <option value=1>1-Star</option>
                                 <option value=2>2-Star</option>
@@ -72,7 +75,7 @@
                                 <option value=4>4-Star</option>
                                 <option value=5>5-star</option>
                               </select>
-                            </label>
+                            </div>
                           </div>
 
                     </div>
@@ -90,7 +93,8 @@
                                 <li><a href="#">1200-1600</a></li>
                                 <li><a href="#">1600-2000</a></li>
                               </ul>-->
-                              <label for="">
+                              <div class="select_box">
+                                <span>Price</span>
                               <select name="price" id="ft_price" [(ngModel)]="searchPrice">
                                 <option value=100>₹ 100</option>
                                 <option value=300>₹ 300</option>
@@ -98,7 +102,7 @@
                                 <option value=1000>₹ 1000</option>
                                 <option value=1500>₹ 1500</option>
                               </select>
-                            </label>
+                            </div>
                           </div>
                     </div>
                     <div class="col4">
@@ -114,14 +118,15 @@
                                 <li><a href="#">Delivery</a></li>
                                 <li><a href="#">Buffet</a></li>
                               </ul>-->
-                              <label for="">
+                              <div class="select_box">
+                                <span>Services</span>
                               <select name="service" id="ft_service" [(ngModel)]="searchService">
                                 <option value="dine-in">Dine-In</option>
                                 <option value="takeaway">Take Away</option>
                                 <option value="delivery">Delivery</option>
                                 <option value="buffet">Buffet</option>
                               </select>
-                            </label>
+                            </div>
                           </div>
                     </div>
                     <div class="col5">
@@ -139,16 +144,17 @@
                                 <li><a href="#">Arbian</a></li>
                                 <li><a href="#">Desserts</a></li>
                               </ul>-->
-                              <label for="">
+                              <div class="select_box">
+                                <span>Cusines</span>
                               <select name="cusines" id="ft_cusine" [(ngModel)]="searchCusine">
                                 <option value="south">South Indian</option>
                                 <option value="north">North Indian</option>
                                 <option value="chinese">Chinese</option>
                                 <option value="italian">Italian</option>
-                                <option value="arabic">Arabian</option>
+                                <option value="arabian">Arabian</option>
                                 <option value="deserts">Deserts</option>
                               </select>
-                            </label>
+                            </div>
                           </div>
                     </div>
                     <div class="col6">
@@ -163,13 +169,18 @@
                                 <li><a href="#">Non-Veg</a></li>
                                 <li><a href="#">All</a></li>
                               </ul>-->
-                              <label for="">
+                              <div class="select_box">
+                                <span>Categories</span>
                               <select name="category" id="ft_category" [(ngModel)]="searchCategories">
                                 <option value="veg" >Veg</option>
-                                <option value="non veg">Non-Veg</option>
+                                <option value="non-veg">Non-Veg</option>
                               </select>
-                            </label>
+                            </div>
                           </div>
+                    </div>
+
+                    <div class="col7">
+                        <input type="submit" value="apply" (click)="searchBasedOnFilters()">
                     </div>
                 </form>
                 </div>

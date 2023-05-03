@@ -25,7 +25,7 @@ import { StoreReviewsComponent } from './store-reviews/store-reviews.component';
 const routes: Routes=[
   { path: '',redirectTo:'default',pathMatch:'full'},
   { path: 'login',component:LoginComponent},
-  { path: 'home',component:HomeComponent},
+  { path: 'home/:userSearch',component:HomeComponent},
   { path:'display/:merchantID',component:DetailsComponent},
   { path:'default',component:MerchantsearchComponent},
   

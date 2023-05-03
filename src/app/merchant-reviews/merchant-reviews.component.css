@@ -20,7 +20,7 @@ thead th {
   position: sticky;
   top: 0;
   z-index: 2;
-  padding: 1.5vw;
+  padding: 10px;
   font-size: 1.25vw;
   background-color: #e94b3cff;
   color: white;
@@ -102,7 +102,7 @@ thead th {
   justify-content: center;
   display: flex;
   color: #00203fff;
-  font-size: 1.5vw;
+  font-size: 1.3vw;
 }
 .review_table {
   width: 96vw;
