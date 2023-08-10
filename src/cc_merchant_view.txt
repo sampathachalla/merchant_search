@@ -1,0 +1,82 @@
+import json
+import boto3
+from boto3.dynamodb.conditions import Key,Attr
+
+def lambda_handler(event, context):
+    try:
+        if 'op' not in event: return {"statusCode":200,"message":"fail","info":"operation key  is missing"}
+        merchantOperation=int(str(event['op']).strip())
+        if merchantOperation==0:
+            return allMerchantList(event,context)
+        elif merchantOperation==1:
+            return merchantDetails(event,context)
+        elif merchantOperation==2:
+            return singleMerchantList(event,context)
+        else:
+            return {"statusCode":200,"message":"fail","info":"undefined operation"}
+            
+    except Exception as  e:
+        return {"statusCode":500,"message":"Exception","info":str(e)}
+    
+    
+    
+def allMerchantList(event,context):
+    try:
+        merchantClient=boto3.resource('dynamodb').Table('Merchant_Table')
+        merchantResponse=merchantClient.query(KeyConditionExpression=Key('P_ID').eq('1'))
+        if merchantResponse['Count']>0:
+            merchantList=merchantResponse['Items']
+            return {"statusCode":200,"message":"success","info":"merchants available",'dataJ':merchantList}
+        else:
+            return {"statusCode":200,"message":"fail","info":"Merchant not present"}
+        
+    except Exception as e:
+        return {"statusCode":500,"message":"Exception","info":str(e)}
+        
+        
+        
+    
+def merchantDetails(event,context):
+    try:
+        if 'M_ID' not in event: return {"statusCode":200,"message":"fail","info":"Merchant unique key id is missing"}
+        
+        merchantID=str(event['M_ID']).strip()
+        for i in range(0,len(merchantID)):
+            if (merchantID[i] >='0' and merchantID[i]<="9") or merchantID[i]=='M' or merchantID[i]=='-':
+                pass
+            else:
+                return {"statusCode":200,"message":"fail","info":"Merchant not present"}
+        
+        merchantClient=boto3.resource('dynamodb').Table('Merchant_Table')
+        merchantResponse=merchantClient.query(KeyConditionExpression=Key('P_ID').eq('1') & Key('M_ID').eq(merchantID))
+        if merchantResponse['Count']>0:
+            merchantList=merchantResponse['Items']
+            return {"statusCode":200,"message":"success","info":"merchant details",'dataJ':merchantList}
+        else:
+            return {"statusCode":200,"message":"fail","info":"Merchant not present"}
+        
+    except Exception as e:
+        return {"statusCode":500,"message":"exception","info":str(e)}
+
+def singleMerchantList(event,context):
+    try:
+        if 'search_inp' not in event: return {"statusCode":200,"message":"fail","Info":"search input key is missing"}
+        
+        searchInput=str(event['search_inp']).strip().lower()
+        
+        merchantClient=boto3.resource('dynamodb').Table('Merchant_Table')
+        merchantResponse=merchantClient.query(KeyConditionExpression=Key('P_ID').eq('1'))
+        if merchantResponse['Count']>0:
+            merchantList=merchantResponse['Items']
+            for i in range(0,len(merchantList)):
+                if (merchantList[i]['m_name']==searchInput):
+                    return {"statusCode":200,"message":"success","info":"merchants available",'dataJ':[merchantList[i]]}
+                else:
+                    pass
+            return {"statusCode":200,"message":"success","info":"merchant available",'dataJ':merchantList}
+        else:
+            return {"statusCode":200,"message":"fail","info":"Merchant not present"}
+        
+    except Exception as e:
+        return {"statusCode":500,"message":"Exception","info":str(e)}
+        

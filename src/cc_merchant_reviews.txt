@@ -1,0 +1,123 @@
+import json
+import boto3
+from boto3.dynamodb.conditions import Key,Attr
+
+def lambda_handler(event, context):
+    try:
+        if 'op' not in event: return {"statusCode":200,"message":"fail","info":"undefined operation"}
+        adminOperation=int(str(event['op']).strip())
+        if adminOperation==0:
+            return getAllMerchantReviews(event,context)
+        elif adminOperation==1:
+            return getSingleMerchantReviews(event,context)
+        elif adminOperation==2:
+            return changeReviewStatus(event,context)
+        
+    except Exception as e:
+        return {"statusCode":500,"message":"Exception","info":str(e)}
+    
+    
+    
+def getAllMerchantReviews(event,context):
+    try:
+        #Keys Validation
+        #valuse Validation
+        #Gen uniq rest ID
+        #Put in dynamo 
+        adminClient=boto3.resource('dynamodb').Table('UserReviews')
+        adminResponse=adminClient.query(
+            IndexName='i_id-t_s-index',
+            KeyConditionExpression=Key('i_id').eq('1') )
+        if adminResponse['Count']>0:
+            adminList=adminResponse['Items']
+            return {"statusCode":200,"message":"success","info":"reviews available",'dataJ':adminList[::-1]}
+        else:
+            return {"statusCode":200,"message":"fail","info":"Merchant not present"}
+        
+    except Exception as e:
+        return {"statusCode":500,"message":"Exception","info":str(e)}
+
+
+def getSingleMerchantReviews(event,context):
+    try:
+        #Keys Validation
+        if 'merchant_id' not in event: return {"statusCode":200,"message":"fail","info":"merchant id key is missing"}
+        #Values Validation
+        merchantID=str(event['merchant_id']).strip()
+        if len(merchantID)==0:
+            return {"statusCode":200,"message":"fail","info":"undefined error "}
+        for i in range(0,len(merchantID)):
+            if (merchantID[i] >='0' and merchantID[i]<="9") or merchantID[i]=='M' or merchantID[i]=='-':
+                pass
+            else:
+                return {"statusCode":200,"message":"fail","info":"Merchant ID is invalid"}
+        
+        adminClient=boto3.resource('dynamodb').Table('UserReviews')
+        adminResponse=adminClient.query(KeyConditionExpression=Key('merchant_id').eq(merchantID))
+        if adminResponse['Count']>0:
+            adminList=adminResponse['Items']
+            return {"statusCode":200,"message":"success","info":"reviews available",'dataJ':adminList}
+        else:
+            return {"statusCode":200,"message":"fail","info":"Merchant not present"}
+        
+        
+        
+        
+        
+        #Gen uniq rest ID
+        #Put in dynamo 
+        
+    except Exception as e:
+        return {"statusCode":500,"message":"Exception","info":str(e)}
+        
+        
+def changeReviewStatus(event,context):
+    try:
+        #review_status = new,aroved,rejected
+        #Keys Validation
+        if not all (k in event for k in ("merchant_id","review_id","adminO")):
+            return {"statusCode":200,"message":"fail","info":"Keys are missing "}
+        #Values Validation
+        merchantID=str(event['merchant_id']).strip()
+        if len(merchantID)==0:
+            return {"statusCode":200,"message":"fail","info":"undefined error "}
+        for i in range(0,len(merchantID)):
+            if (merchantID[i] >='0' and merchantID[i]<="9") or merchantID[i]=='M' or merchantID[i]=='-':
+                pass
+            else:
+                return {"statusCode":200,"message":"fail","info":"Merchant ID is invalid"}
+        reviewID=str(event['review_id']).strip()
+        if len(reviewID)==0:
+            return {"statusCode":200,"message":"fail","info":"undefined error "}
+        for i in range(0,len(reviewID)):
+            if (reviewID[i] >='0' and reviewID <= '9'):
+                pass
+            else:
+                return {"statusCode":200,"message":"fail","info":"Review ID is invalid"}
+        adminOperation=str(event['adminO']).strip()
+        if len(adminOperation)==0:
+            return {"statusCode":200,"message":"fail","info":"undefined error "}
+        #Gen uniq rest ID
+        if int(adminOperation)==1:
+            reviewStatus="aproved"
+        elif int(adminOperation)==0:
+            reviewStatus="rejected"
+        else:
+            return {"statusCode":200,"message":"fail","info":"undefined operation"}
+        adminClient=boto3.resource('dynamodb').Table('UserReviews')
+        adminResponse=adminClient.update_item(
+            Key={"merchant_id":merchantID,
+                "t_s":reviewID
+            },
+            UpdateExpression="set #tempStatus =:tempValue",
+            ExpressionAttributeNames={"#tempStatus":'review_status'},
+            ExpressionAttributeValues={
+            ":tempValue": reviewStatus
+            },
+            ReturnValues="UPDATED_NEW"
+            )
+        return {"statusCode":200,"message":"success","info":"valid"}
+        #Put in dynamo 
+        
+    except Exception as e:
+        return {"statusCode":500,"message":"Exception","info":str(e)}

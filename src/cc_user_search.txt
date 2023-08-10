@@ -1,0 +1,597 @@
+import json
+import boto3
+from boto3.dynamodb.conditions import Key,Attr
+from math import radians, cos, sin, asin, sqrt
+import userInputSearch
+def lambda_handler(event, context):
+    try:
+        if not all (k in event for k in ("op","user_latitude","user_longitude")):
+            return {"statusCode":200,"message":"fail","info":"Keys are missing here"}
+        userOperation=str(event['op']).strip()
+        merchantSortedList=sort_by_distance(event)
+        #return merchantSortedList
+        if userOperation=='0':
+            return search_by_filter(event,merchantSortedList)
+        elif userOperation == '1':
+            return normal_search_function(event,merchantSortedList)
+        else:
+            pass
+    except Exception as e:
+        return {"stausCode":500,"message":"Exceeption1","info":str(e)}
+def normal_search_function(event,merchantSortedList):
+    try:
+        userInput=str(event['user_inp']).strip().lower()
+        count=len(merchantSortedList)
+        for i in range(0,count):
+            if userInput==merchantSortedList[i]['m_name']:
+                return {"statusCode":200,"message":"success","info":"merchant list","dataJ":[merchantSortedList[i]]}
+            else:
+                pass
+        searchResult=userInputSearch.inputFilterExtraction(userInput,merchantSortedList)
+        if searchResult['statusCode']==200 and searchResult['message']=='fail':
+            dummyEvent={"m_distance": 50,"m_rating": 0,"m_price": "","m_category": "","m_cusine": "","m_service": ""}
+            return search_by_filter(dummyEvent,merchantSortedList)
+        elif searchResult['statusCode']==200 and searchResult['message']=='success':
+            return searchResult
+        else:
+            return {"statusCode":500,"message":"fail","info":"No Restaurant Found"}
+    except Exception as e:
+        return {"statusCode":500,"message":"Exception2","info":str(e)}
+        
+        
+        
+
+def sort_by_distance(event):
+    try:
+        projection="M_ID,m_name,m_latitude,m_longitude,m_cusines,m_rating,m_street,m_area,m_city,m_min_price,m_max_price,m_categories,m_services,m_city_code"
+        user_distance_sorted_list=[]
+        distance_mid_dic={}
+        merchant_table_client=boto3.resource('dynamodb').Table('Merchant_Table')
+        merchant_table_response=merchant_table_client.query(KeyConditionExpression=Key('P_ID').eq('1'),FilterExpression=Attr('m_status').eq('active'),ProjectionExpression=str(projection))
+        if merchant_table_response['Count']>0:
+            merchantList=merchant_table_response['Items']
+        else:
+            return {"statusCode":500,"message":"fail","info":"No merchant found"}
+        count=len(merchantList)
+        #User location details
+        """
+        user_lat=float(event['user_latitude'])
+        user_lon=float(event['user_longitude'])"""
+        user_lat=17.451220310112724
+        user_lon=78.36279909999828
+        print(user_lat)
+        print(user_lon)
+        #print(user_lat)
+        #print(user_lon)
+        
+        for i in range(0,count):
+            """
+            cal_lat=round(float(merchantList[i]['m_latitude']),7)
+            cal_lon=round(float(merchantList[i]['m_longitude']),7)"""
+            cal_lat=float(merchantList[i]['m_latitude'])
+            cal_lon=float(merchantList[i]['m_longitude'])
+            print(cal_lat,cal_lon)
+            cal_dist=distance_calculation(user_lat,user_lon,cal_lat,cal_lon)
+            #print('cal_dist:',cal_dist)
+            merchantList[i]['distance_cal'] = round(cal_dist,2)
+            
+            distance_mid_dic[cal_dist]=merchantList[i]['M_ID']
+        
+        sorted_distance_keys=sorted(distance_mid_dic)
+        
+        for i in range(0,len(distance_mid_dic)):
+            for j in range(0,count):
+                if merchantList[j]['M_ID']==distance_mid_dic[sorted_distance_keys[i]]:
+                    user_distance_sorted_list.append(merchantList[j])
+        return user_distance_sorted_list
+            
+        
+    except Exception as e:
+        return {"statusCode":500,"message":"Exception in sort_by_distance function","info":str(e)}
+    
+def distance_calculation(user_lat,user_lon,store_lat,store_lon):
+    user_lon = radians(user_lon)
+    store_lon = radians(store_lon)
+    user_lat = radians(user_lat)
+    store_lat = radians(store_lat)
+    dlon = store_lon - user_lon
+    dlat = store_lat - user_lat
+    a = sin(dlat / 2)**2 + cos(user_lat) * cos(store_lat) * sin(dlon / 2)**2
+    c = 2 * asin(sqrt(a))
+    r = 6371
+    #Returning data in KMS
+    return(c * r)
+
+
+
+
+
+def search_by_filter(event,merchantSortedList):
+    
+    #Global Declaration of filter elements
+    searchDistance=50
+    searchRating=0
+    searchPrice=0
+    searchCusine='NA'
+    searchCategory='NA'
+    searchService='NA'
+    filteredList1 = []
+    filteredList2=[]
+    if not all (k in event for k in ("m_distance","m_rating","m_price","m_cusine","m_category","m_service")):
+            return {"statusCode":200,"message":"fail","info":"Keys are missing "}
+    
+    #Assigning user values to the filter elements 
+    
+    if int(event['m_distance'])>0:
+        searchDistance=int(event['m_distance'])
+    if int(event['m_rating'])>0:
+        searchRating=int(event['m_rating'])
+    if len(event['m_price'])>0:
+        searchPrice=event['m_price']
+    if len(event['m_cusine'])>0:
+        searchCusine=event['m_cusine']
+    if len(event['m_category'])>0:
+        searchCategory=event['m_category']
+    if len(event['m_service'])>0:
+        searchService=event['m_service']
+
+    
+    #Returning result based on user selected filters
+    if searchDistance!=50:
+        filteredList1=search_by_distance(merchantSortedList,searchDistance)
+    else:
+        filteredList1=search_by_distance(merchantSortedList)
+
+    if searchRating!=0:
+        filteredList1=search_by_rating(filteredList1,searchRating)
+    else:
+        filteredList1=search_by_rating(filteredList1)
+        
+    if searchPrice!=0:
+        filteredList1=search_by_price(filteredList1,int(searchPrice))
+    else:
+            filteredList1=search_by_price(filteredList1)
+
+        
+    if searchCusine!='NA':
+        filteredList1=search_by_cusine(filteredList1,searchCusine)
+    else:
+        filteredList1=search_by_cusine(filteredList1)
+        
+    if searchCategory!='NA':
+        filteredList1=search_by_category(filteredList1,searchCategory)
+    else:
+        filteredList1=search_by_category(filteredList1)
+            
+            
+    if searchCategory!='NA':
+        filteredList1=search_by_service(filteredList1,searchService)
+    else:
+        filteredList1=search_by_service(filteredList1)
+        
+    return {"statusCode":200,"message":"success","info":"merchant list","dataJ":filteredList1}
+        
+        
+
+#Function returns result based on distance
+def search_by_distance(list,distance=50):
+    filteredList=[]
+    count=len(list)
+    for i in range(0,count):
+        if int(list[i]['distance_cal'])<=distance:
+            filteredList.append(list[i])
+    return filteredList
+
+#Function returns result based on rating
+def search_by_rating(list,rating=0):
+    if rating==0:
+        return list
+    filteredList=[]
+    count=len(list)
+    for i in range(0,count):
+        if int(list[i]['m_rating'])>=rating:
+            filteredList.append(list[i])
+    return filteredList
+
+#Function returns result based on price
+def search_by_price(list,searchPrice=0):
+    try:
+        filteredList=[]
+        if searchPrice==0:
+            return list
+        else:
+            count=len(list)
+            for i in range(0,count):
+                
+                if (searchPrice>=int(list[i]['m_min_price'])) and (searchPrice<= int(list[i]['m_max_price'])):
+                    filteredList.append(list[i])
+        return filteredList
+    except Exception as e:
+        return {"status code":"500","message":"Exception in price function","info":str(e)}
+        
+#Function returns result based on cusine
+def search_by_cusine(list,cusine='NA'):
+    try:
+        if cusine=='NA':
+            return list
+        cusine=str(cusine.lower()).strip()
+        filteredList=[]
+        count=len(list)
+        for i in range(0,count):
+            if cusine in list[i]['m_cusines']:
+                filteredList.append(list[i])
+        return filteredList
+    except Exception as e:
+        return {"status code":"500","message":"Exception in cusine function","info":str(e)}
+        
+#Function returns result based on category
+def search_by_category(list,category='NA'):
+    try:
+        if category=='NA':
+            return list
+        category=str(category.lower()).strip()
+        filteredList=[]
+        count=len(list)
+        for i in range(0,count):
+            if category in list[i]['m_categories']:
+                filteredList.append(list[i])
+        return filteredList
+    except Exception as e:
+        return {"status code":"500","message":"Exception in category function","info":str(e)}
+        
+#Function returns result based on services
+def search_by_service(list,service='NA'):
+    try:
+        if service=='NA':
+            return list
+        service=str(service.lower()).strip()
+        filteredList=[]
+        count=len(list)
+        for i in range(0,count):
+            if service in list[i]['m_services']:
+                filteredList.append(list[i])
+        return filteredList
+    except Exception as e:
+        return {"status code":"500","message":"Exception in category function","info":str(e)}
+
+
+    
+
+
+
+import json
+"""south_indian_dishes=['idli','sambaridli','karramidli','dosa','masaladosa','oniondosa','ravadosa','ravaoniondosa','sambar','meals','uttapam','poori','vada','mysorebhajji','bhajji'
+'punugulu','upma','pakodi','pakori','pesarattu','pongal','pulihora','appam','chickenchettinad','chettinad','payasam','chepalapulusu','pulusu','pongal','rasam','vangibath','bajji',
+'parotha']
+north_indian_dishes=['pulka','cholebhature','chole','bhature','naan','dalmakhani','makhani','paratha','roti','chapati','kadhaipaneer','kadhai','pannerbuttermasala','butterchicken',
+'kulcha','daltadka','dal','makhani','palakpaneer','rajma','pannertikka','tikka','chickentikka','halwa','malai kofta','kofta','samsoa','laukikofta','kheer',
+'kachori','panipuri','pani','chat','papri chat','papri','vadapav','pavbhaji','thali','pav','bhaji']
+chinese_dishes=['noodles','chowmein','fried rice','manchurian','dumplings','momos','schezwan','tofu','rolls']
+italian_dishes=['pizza','vegpizza','pannerpizza','americanpizza','burger','pasta','puff','sandwich','pancakes','bread','lasagna','frenchfries','smiley','fries']
+arbian_dishes=['biryani','veg biryani','pannerbiryani','chickenbiryani','muttonbiryani','dumbiryani','shawarma','kebab','mandi']
+desserts_list=['sweets','shakes','lassi','icecreams','juices','pancakes','pastry','cakes']"""
+
+nonveg_list=['chicken','mutton','fish','egg','prawns','crabs','prawn','crab']
+merchant_flag_tiggers=['restaurants','hotels','parlour','mess','near me','food']
+
+cusines_dic={'indian':'cusine','south':'cusine','north':'cusine','chinese':'cusine','italian':'cusine','arabian':'cusine','mughlai':'cusine','desserts':'cusine'}
+categories_dic={'veg':'category','non-veg':'category'}
+modes_dic={'dine-in':'service','takeaway':'service','delivery':'service','buffet':'service'}
+food_types_dic={'breakfast':'type','lunch':'type','snacks':'type','dinner':'type','sweets':'type','starters':'type'}
+rating_dic={'rating':'rating','ratings':'rating','star':'rating','stars':'rating','1star':'rating','2star':'rating','3star':'rating','4star':'rating','5star':'rating'}
+distance_dic={'kms':'distance','kilometers':'distance','km':'distance','kilometer':'distance','distance':'distance'}
+price_dic={'price':'price','min':'price','minimum':'price','max':'price','maximum':'price','cost':'price','rupees':'price'}
+
+filter_dic={'idli':'south','sambaridli':'south','karramidli':'south','dosa':'south','masaladosa':'south','oniondosa':'south','ravadosa':'south','ravaoniondosa':'south',
+'sambar':'south','meals':'south','uttapam':'south','poori':'south','vada':'south','mysorebhajji':'south','punugulu':'south','upma':'south','pakodi':'south','pakori':'south',
+'pesarattu':'south','pongal':'south','pulihora':'south','appam':'south','chickenchettinad':'south','payasam':'south','chepalapulusu':'south','pongal':'south','rasam':'south',
+'vangibath':'south','bajji':'south','parotha':'south','pulka':'north','cholebhature':'north','naan':'north','makhani':'north','paratha':'north','roti':'north','chapati':'north',
+'kadhaipaneer':'north','pannerbuttermasala':'north','butterchicken':'north','kulcha':'north','daltadka':'north','dal':'north','pavbhaji':'north','thali':'north','dalmakhani':'north',
+'palakpaneer':'north','rajma':'north','pannertikka':'north','tikka':'north','chickentikka':'north','halwa':'north','malaikofta':'north','samsoa':'north','laukikofta':'north',
+'kheer':'north','kachori':'north','panipuri':'north','chat':'north','paprichat':'north','vada pav':'north','noodles':'chinese','chowmein':'chinese','friedrice':'chinese',
+'manchurian':'chinese','dumplings':'chinese','momos':'chinese','schezwan':'chinese','tofu':'chinese','rolls':'chinese','pizza':'italian','vegpizza':'italian','pannerpizza':'italian',
+'americanpizza':'italian','burger':'italian','pasta':'italian','puff':'italian','sandwich':'italian','pancakes':'italian','bread':'italian','lasagna':'italian','frenchfries':'italian',
+'smiley':'italian','biryani':'arabian','vegbiryani':'arabian','pannerbiryani':'arabian','chickenbiryani':'arabian','muttonbiryani':'arabian','dumbiryani':'arabian','shawarma':'arabian',
+'kebab':'arabian','mandi':'arabian','sweets':'desserts','shakes':'desserts','lassi':'desserts','icecreams':'desserts','juices':'desserts','pancakes':'desserts','pastry':'desserts',
+'cakes':'desserts','bhajji':'south','chettinad':'south','pulusu':'south','chole':'north','bhature':'north','makhani':'north','kadhai':'north','kofta':'north','pani':'north',
+'papri':'north','pav':'north','bhaji':'north','fries':'italian','veg':'categories','non-veg':'categories','indian':'cusines','south':'cusines','north':'cusines','chinese':'cusines',
+'italian':'cusines','arbian':'cusines','desserts':'cusines','dine-in':'services','takeaway':'services','delivery':'services','buffet':'services','km':'distance','breakfast':'type',
+'lunch':'type','snacks':'type','dinner':'type','sweets':'type','starters':'type',
+'rating':'rating','ratings':'rating','star':'rating','stars':'rating','1star':'rating','2star':'rating','3star':'rating','4star':'rating','5star':'rating','1stars':'rating',
+'2stars':'rating','3stars':'rating','4stars':'rating','5stars':'rating','kms':'distance','kilometers':'distance','km':'distance','kilometer':'distance','distance':'distance',
+'price':'price','min':'price','minimum':'price','max':'price','maximum':'price','cost':'price','rupees':'price'}
+
+dishes_dic={'idli':'south','sambaridli':'south','karramidli':'south','dosa':'south','masaladosa':'south','oniondosa':'south','ravadosa':'south','ravaoniondosa':'south',
+'sambar':'south','meals':'south','uttapam':'south','poori':'south','vada':'south','mysorebhajji':'south','punugulu':'south','upma':'south','pakodi':'south','pakori':'south',
+'pesarattu':'south','pongal':'south','pulihora':'south','appam':'south','chickenchettinad':'south','payasam':'south','chepalapulusu':'south','pongal':'south','rasam':'south',
+'vangibath':'south','bajji':'south','parotha':'south','pulka':'north','cholebhature':'north','naan':'north','makhani':'north','paratha':'north','roti':'north','chapati':'north',
+'kadhaipaneer':'north','pannerbuttermasala':'north','butterchicken':'north','kulcha':'north','daltadka':'north','dal':'north','pavbhaji':'north','thali':'north','dalmakhani':'north',
+'palakpaneer':'north','rajma':'north','pannertikka':'north','tikka':'north','chickentikka':'north','halwa':'north','malaikofta':'north','samsoa':'north','laukikofta':'north',
+'kheer':'north','kachori':'north','panipuri':'north','chat':'north','paprichat':'north','vada pav':'north','noodles':'chinese','chowmein':'chinese','friedrice':'chinese',
+'manchurian':'chinese','dumplings':'chinese','momos':'chinese','schezwan':'chinese','tofu':'chinese','rolls':'chinese','pizza':'italian','vegpizza':'italian','pannerpizza':'italian',
+'americanpizza':'italian','burger':'italian','pasta':'italian','puff':'italian','sandwich':'italian','pancakes':'italian','bread':'italian','lasagna':'italian','frenchfries':'italian',
+'smiley':'italian','biryani':'arabian','vegbiryani':'arabian','pannerbiryani':'arabian','chickenbiryani':'arabian','muttonbiryani':'arabian','dumbiryani':'arabian','shawarma':'arabian',
+'kebab':'arabian','mandi':'arabian','sweets':'desserts','shakes':'desserts','lassi':'desserts','icecreams':'desserts','juices':'desserts','pancakes':'desserts','pastry':'desserts',
+'cakes':'desserts','bhajji':'south','chettinad':'south','pulusu':'south','chole':'north','bhature':'north','makhani':'north','kadhai':'north','kofta':'north','pani':'north',
+'papri':'north','pav':'north','bhaji':'north','fries':'italian'}
+
+def inputFilterExtraction(userInput,merchantSortedList):
+    try:
+        #initializing flags
+        subFilterFlag=0
+        MerchantNameFlag=0
+        #Intilizing user list
+        sortedUserInputList=[]
+        #initializing sub filters
+        userInputList=userInput.split(" ")
+        #Deleting unwanted words from the user input
+        for i in range(0,len(userInputList)):
+            
+            print(userInputList[i])
+            if (userInputList[i] in filter_dic ):
+                sortedUserInputList.append(userInputList[i])
+                subFilterFlag=1
+            elif userInputList[i] in merchant_flag_tiggers:
+                MerchantNameFlag=1
+            elif userInputList[i].isdigit():
+                sortedUserInputList.append(userInputList[i])
+            else:
+                pass
+        print(sortedUserInputList)
+        #Assigning sub filters
+        if subFilterFlag==1:
+            print("sub filtered function")
+            dummyEvent=sub_filter_fun(sortedUserInputList)
+            print(dummyEvent)
+            return search_by_filter(dummyEvent,merchantSortedList)
+            
+        elif MerchantNameFlag==1 and subFilterFlag==0:
+            return {"statusCode":200,"message":"fail","info":"No merchant found"}
+        else:
+            return {"statusCode":500,"message":"fail","info":"Incorrect Input"}
+            
+    except Exception as e:
+        return {"status code":"500","message":"unexpected exception occurs!",'info':str(e)}
+
+def sub_filter_fun(inputList):
+    try:
+        # TODO: write code...
+        tempDistance=0
+        tempRating=0
+        tempPrice=0
+        tempCusines=[]
+        tempCategories=[]
+        tempModes=[]
+        for i in range(len(inputList)):
+            if inputList[i] in dishes_dic:
+                tempCusines.append(dishes_dic[inputList[i]])
+            #checking cusines list array
+            elif inputList[i] in cusines_dic:
+                if inputList[i]=='south':
+                    tempCusines.append('south')
+                elif inputList[i]=='north':
+                    tempCusines.append('north')
+                elif inputList[i]=='chinese':
+                    tempCusines.append('chinese')
+                elif inputList[i]=='italian':
+                    tempCusines.append('italian')
+                elif inputList[i]=='desserts':
+                    tempCusines.append('desserts')
+                elif inputList[i]=='arabian' or inputList[i]=='mughlai':
+                    tempCusines.append('arabian')
+                elif inputList[i]=='indian':
+                    tempCusines.append('south')
+                    tempCusines.append('north')
+                
+            #checking categories list array
+            elif inputList[i] in categories_dic:
+                if inputList[i]=='veg':
+                    tempCategories='veg'
+                else:
+                    tempCategories='non-veg'
+                    
+            #checking modes list array
+            elif inputList[i] in modes_dic:
+                if inputList[i]=='delivery':
+                    tempModes.append('delivery')
+                elif inputList[i]=='takeaway':
+                    tempModes.append('takeaway')
+                elif inputList[i]=='dine-in':
+                    tempModes.append('dine-in')
+                elif inputList[i]=='buffet':
+                    tempModes.append('buffet')
+                    
+            #checking food types list array
+            elif inputList[i] in food_types_dic:
+                if inputList[i]=='sweets':
+                    tempCusines.append('desserts')
+                elif inputList[i]=='breakfast' or inputList[i]=='tiffins':
+                    tempCusines.append('south')
+                elif inputList[i]=='starters':
+                    tempCusines.extend(['chinese','north'])
+                elif inputList[i]=='lunch' or inputList[i]=='dinner':
+                    tempCusines.extend(['south','north','italian','chinese','arabian'])
+        
+            #checking ratings,distance and pricing
+            elif inputList[i].isdigit():
+                userNum=float(inputList[i])
+
+                if (userNum<=5 and inputList[i+1] in rating_dic) and (('star' in inputList) or ('stars' in inputList) or ('rating' in inputList) or ('ratings' in inputList)):
+                    tempRating=userNum
+                elif (userNum<=50) and (('distance' in inputList) or ('kilometer'in inputList) or ('kilometers'in inputList) or ('km' in inputList) or ('kms' in inputList)):
+                    tempDistance=userNum
+                elif (userNum<=2000) and (('price' in inputList) or ('cost' in inputList) or ('rupees' in inputList) ):
+                    tempPrice=userNum
+                else:
+                    tempPrice=userNum
+            
+            elif filter_dic[inputList[i]]=='rating':
+                if inputList[i]=='1star':
+                    tempRating=1
+                elif inputList[i]=='2star':
+                    tempRating=2
+                elif inputList[i]=='3star':
+                    tempRating=3
+                elif inputList[i]=='4star':
+                    tempRating=4
+                elif inputList[i]=='5star':
+                    tempRating=5
+
+        return {'m_distance':tempDistance,'m_rating':tempRating,'m_price':tempPrice,'m_cusine':tempCusines,'m_category':tempCategories,'m_service':tempModes}
+    except Exception as e:
+        return {"status code":"500","message":"Exception in sub_filter_fun","info":str(e)}
+
+def search_by_filter(event,merchantSortedList):
+    
+    #Global Declaration of filter elements
+    searchDistance=50
+    searchRating=0
+    searchPrice=0
+    searchCusine='NA'
+    searchCategory='NA'
+    searchService='NA'
+    filteredList1 = []
+    filteredList2=[]
+    if not all (k in event for k in ("m_distance","m_rating","m_price","m_cusine","m_category","m_service")):
+            return {"statusCode":200,"message":"fail","info":"Keys are missing2 "}
+    
+    #Assigning user values to the filter elements 
+    
+    if int(event['m_distance'])>0:
+        searchDistance=int(event['m_distance'])
+    if int(event['m_rating'])>0:
+        searchRating=int(event['m_rating'])
+    if int(event['m_price'])>0:
+        searchPrice=event['m_price']
+    if len(event['m_cusine'])>0:
+        searchCusine=event['m_cusine'][0]
+    if len(event['m_category'])>0:
+        searchCategory=event['m_category'][0]
+    if len(event['m_service'])>0:
+        searchService=event['m_service'][0]
+
+    
+    #Returning result based on user selected filters
+    if searchDistance!=50:
+        filteredList1=search_by_distance(merchantSortedList,searchDistance)
+    else:
+        filteredList1=search_by_distance(merchantSortedList)
+
+    if searchRating!=0:
+        filteredList1=search_by_rating(filteredList1,searchRating)
+    else:
+        filteredList1=search_by_rating(filteredList1)
+        
+    if searchPrice!=0:
+        filteredList1=search_by_price(filteredList1,int(searchPrice))
+    else:
+            filteredList1=search_by_price(filteredList1)
+
+        
+    if searchCusine!='NA':
+        filteredList1=search_by_cusine(filteredList1,searchCusine)
+    else:
+        filteredList1=search_by_cusine(filteredList1)
+        
+    if searchCategory!='NA':
+        filteredList1=search_by_category(filteredList1,searchCategory)
+    else:
+        filteredList1=search_by_category(filteredList1)
+            
+            
+    if searchCategory!='NA':
+        filteredList1=search_by_service(filteredList1,searchService)
+    else:
+        filteredList1=search_by_service(filteredList1)
+        
+    return {"statusCode":200,"message":"success","info":"merchant list","dataJ":filteredList1}
+        
+        
+
+#Function returns result based on distance
+def search_by_distance(list,distance=50):
+    filteredList=[]
+    count=len(list)
+    for i in range(0,count):
+        if int(list[i]['distance_cal'])<=distance:
+            filteredList.append(list[i])
+    return filteredList
+
+#Function returns result based on rating
+def search_by_rating(list,rating=0):
+    if rating==0:
+        return list
+    filteredList=[]
+    count=len(list)
+    for i in range(0,count):
+        if int(list[i]['m_rating'])>=rating:
+            filteredList.append(list[i])
+    return filteredList
+
+#Function returns result based on price
+def search_by_price(list,searchPrice=0):
+    try:
+        filteredList=[]
+        if searchPrice==0:
+            return list
+        else:
+            count=len(list)
+            for i in range(0,count):
+                
+                if (searchPrice>=int(list[i]['m_min_price'])) and (searchPrice<= int(list[i]['m_max_price'])):
+                    filteredList.append(list[i])
+        return filteredList
+    except Exception as e:
+        return {"status code":"500","message":"Exception in price function","info":str(e)}
+        
+#Function returns result based on cusine
+def search_by_cusine(list,cusine='NA'):
+    try:
+        if cusine=='NA':
+            return list
+        cusine=str(cusine.lower()).strip()
+        filteredList=[]
+        count=len(list)
+        for i in range(0,count):
+            if cusine in list[i]['m_cusines']:
+                filteredList.append(list[i])
+        return filteredList
+    except Exception as e:
+        return {"status code":"500","message":"Exception in cusine function","info":str(e)}
+        
+#Function returns result based on category
+def search_by_category(list,category='NA'):
+    try:
+        if category=='NA':
+            return list
+        category=str(category.lower()).strip()
+        filteredList=[]
+        count=len(list)
+        for i in range(0,count):
+            if category in list[i]['m_categories']:
+                filteredList.append(list[i])
+        return filteredList
+    except Exception as e:
+        return {"status code":"500","message":"Exception in category function","info":str(e)}
+        
+#Function returns result based on services
+def search_by_service(list,service='NA'):
+    try:
+        if service=='NA':
+            return list
+        service=str(service.lower()).strip()
+        filteredList=[]
+        count=len(list)
+        for i in range(0,count):
+            if service in list[i]['m_services']:
+                filteredList.append(list[i])
+        return filteredList
+    except Exception as e:
+        return {"status code":"500","message":"Exception in category function","info":str(e)}
+
+
+    
+
+    
+        
+    

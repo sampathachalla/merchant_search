@@ -1,0 +1,173 @@
+import json
+import boto3
+from boto3.dynamodb.conditions import Key,Attr
+from datetime import datetime,date
+import decimal
+storeRatingDic={'1':0,'2':0,'3':0,'4':0,'5':0}
+
+def lambda_handler(event, context):
+    try:
+        if 'op' not in event: return {"statusCode":200,"message":"fail","info":"operation key is missing"}
+        userOperation=int(str(event['op'].strip()))
+        
+        if userOperation==0:
+            return getMerchantDetailsForUser(event,context)
+        elif userOperation==1:
+            return userAddReview(event,context)
+        else:
+            return {"statusCode":200,"message":"fail","info":"undefined operation"}
+    except Exception as e:
+        return {"statusCode":200,"message":"Exception","info":str(e)}
+    
+
+def getMerchantDetailsForUser(event,context):
+    try:
+        storeDetails=[]
+        #Keys Validation
+        if 'M_ID' not in event: return {"statusCode":200,"message":"fail","info":"Merchant ID key is missing"}
+        #Values Validation
+        merchantID=str(event['M_ID']).strip()
+        if len(merchantID)==0:
+            return {"statusCode":200,"message":"fail","info":"undefined error "}
+        for i in range(0,len(merchantID)):
+            if (merchantID[i] >='0' and merchantID[i]<="9") or merchantID[i]=='M' or merchantID[i]=='-':
+                pass
+            else:
+                return {"statusCode":200,"message":"fail","info":"Merchant ID is invalid"}
+        #getting particular store details from dynamoDB
+        storeProjection="M_ID,m_name,m_city,m_street,m_pincode,m_area,m_open_time,m_close_time,m_specials,m_categories,m_cusines,m_services,m_experience,m_address,m_rating"
+        userStoreClient=boto3.resource('dynamodb').Table('Merchant_Table')
+        userStoreResponse=userStoreClient.query(KeyConditionExpression=Key('P_ID').eq('1') & Key('M_ID').eq(merchantID),
+        FilterExpression=Attr('m_status').eq('active'),
+        ProjectionExpression=str(storeProjection))
+        if userStoreResponse['Count']>0:
+            userStoreList=userStoreResponse['Items']
+            storeDetails.append(userStoreList)
+        else:
+            return {"statusCode":200,"message":"fail","info":"Merchant not present"}
+        
+        #getting particular store Reviews details from dynamodb
+        reviewProjection="user_name,user_rating,user_review"
+        userReviewClient=boto3.resource('dynamodb').Table('UserReviews')
+        userReviewResponse=userReviewClient.query(KeyConditionExpression=Key('merchant_id').eq(merchantID),
+        FilterExpression=Attr('review_status').eq('aproved'),
+        ProjectionExpression=str(reviewProjection))
+        if userReviewResponse['Count']>0:
+            userReviewList=userReviewResponse['Items']
+            storeDetails.append(userReviewList)
+        """else:
+            return {"statusCode":400,"message":"Error!","info":"Merchant not present"}"""
+        return {"statusCode":200,"message":"success","info":"merchant details available",'dataJ':storeDetails}
+        
+        #Gen uniq rest ID
+        #Put in dynamo 
+        
+    except Exception as e:
+        return {"statusCode":500,"message":"Exception","info":str(e)}
+
+
+def userAddReview(event,context):
+    try:
+        
+        #Keys Validation
+        if not all (k in event for k in ("M_ID","user_id","user_name","user_rating","user_review")):
+            return {"statusCode":500,"message":"fail","info":"Empty Form Cannot be Submitted"}
+        #Values Validation
+        merchantID=str(event['M_ID']).strip()
+        if len(merchantID)==0:
+            return {"statusCode":200,"message":"fail","info":"undefined error "}
+        for i in range(0,len(merchantID)):
+            if (merchantID[i] >='0' and merchantID[i]<="9") or merchantID[i]=='M' or merchantID[i]=='-':
+                pass
+            else:
+                return {"statusCode":200,"message":"fail","info":"Merchant ID is invalid"}
+                
+        userID=str(event['user_id']).strip()
+        if len(userID)==0:
+            return {"statusCode":200,"message":"fail","info":"Please Enter Your Email Id "}
+        for i in range(0,len(userID)):
+            if ((userID[i] >='0' and userID[i] <='9') or (userID[i] >='a' and userID[i]<='z') or (userID[i] >='A' and userID[i]<='Z') or userID[i]=='@' or userID[i]=='.'):
+                pass
+            else:
+                return {"statusCode":200,"message":"fail","info":"Please Enter Your Email Id "}
+                
+        userName=str(event['user_name']).strip()
+        if len(userName)==0:
+            return {"statusCode":200,"message":"fail","info":"Please Enter Your Name"}
+        userRating=str(event['user_rating']).strip() 
+        if len(userRating)==0:
+            return {"statusCode":200,"message":"fail","info":"Please Provide Rating for the Restaurant"}
+        userReview=str(event['user_review']).strip().lower()
+        if len(userReview)==0:
+            return {"statusCode":200,"message":"fail","info":"Please Provide Review for the Restaurant in your own words"}
+        
+        
+        #Gen uniq rest ID
+        tsObject = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+        reviewTs= str(datetime.utcnow().strftime("%Y%m%d%H%M%S"))
+        reviewTs=str(reviewTs)
+        reviewDate=str(date.today())
+        reviewStatus='new'
+        generatedEvent={"merchant_id":merchantID,"i_id":"1","t_s":reviewTs,'user_id':userID,'user_name':userName,'user_rating':userRating,'user_review':userReview,'review_date':reviewDate,'review_status':reviewStatus}
+        
+        #Put in dynamo 
+        reviewTable=boto3.resource('dynamodb').Table('UserReviews')
+        userReviewResponse=reviewTable.query(KeyConditionExpression=Key('merchant_id').eq(merchantID))
+        star1Count=0 
+        star2Count=0 
+        star3Count=0 
+        star4Count=0 
+        star5Count=0
+        if userReviewResponse['Count']>0:
+            userReviewList=userReviewResponse['Items']
+            for i in range(0,len(userReviewList)):
+                if userReviewList[i]['user_rating']=='1':
+                    star1Count=star1Count+1
+                elif userReviewList[i]['user_rating']=='2':
+                    star2Count=star2Count+1
+                elif userReviewList[i]['user_rating']=='3':
+                    star3Count=star3Count+1
+                elif userReviewList[i]['user_rating']=='4':
+                    star4Count=star4Count+1
+                elif userReviewList[i]['user_rating']=='5':
+                    star5Count=star5Count+1
+            
+        #calculating user rating
+        storeProjection="m_rating_count"
+        userStoreClient=boto3.resource('dynamodb').Table('Merchant_Table')
+        userStoreResponse=userStoreClient.query(KeyConditionExpression=Key('P_ID').eq('1') & Key('M_ID').eq(merchantID),
+        FilterExpression=Attr('m_status').eq('active'),
+        ProjectionExpression=str(storeProjection))
+        if userStoreResponse['Count']>0:
+            userStoreList=userStoreResponse['Items']
+            storeRatingCount=int(userStoreList[0]['m_rating_count'])
+        if storeRatingCount==0:
+            averageRating=((1*star1Count)+(1*star1Count)+(2*star2Count)+(3*star3Count)+(4*star4Count)+(5*star5Count))/1
+            averageRating=int(userRating)
+        else:
+            averageRating=((1*star1Count)+(1*star1Count)+(2*star2Count)+(3*star3Count)+(4*star4Count)+(5*star5Count))/storeRatingCount
+        tempRating=round(averageRating,1)
+        decimal_value = decimal.Decimal(str(tempRating))
+        averageRating=decimal_value
+        storeRatingCount=storeRatingCount+1
+        print(averageRating)
+    
+        userResponse=userStoreClient.update_item(
+            Key={"P_ID":'1',
+                "M_ID":merchantID
+            },
+            UpdateExpression="set m_rating =:value1, m_rating_count =:value2",
+            ExpressionAttributeValues={
+            ':value1': averageRating, ':value2': storeRatingCount
+            },
+            ReturnValues="UPDATED_NEW"
+            )
+        
+        
+        reviewResponse=reviewTable.put_item(Item=generatedEvent,ConditionExpression= 'attribute_not_exists(t_s)')
+        return {"statusCode": 200,"message":"success","info":"Review Submitted sucessfully"}
+        
+        
+        
+    except Exception as e:
+        return {"statusCode":500,"message":"Exception","info":str(e)}

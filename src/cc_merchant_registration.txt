@@ -1,0 +1,277 @@
+import json
+import boto3
+from decimal import Decimal
+from datetime import datetime
+
+def lambda_handler(event, context):
+    try:
+        if 'op' not in event: return {"statusCode":200,"message":"fail","info":"operation key is missing"}
+        adminOperation=str(event['op']).strip()
+        if len(adminOperation)==0:
+            return {"statusCode":200,"message":"fail","info":"undefined error"}
+        
+        if adminOperation=='0':
+            return registerMerchant(event,context)
+        elif adminOperation=='1a':
+            return updateMerchant1(event,context)
+        elif adminOperation=='1b':
+            return updateMerchant2(event,context)
+        elif adminOperation=='2':
+            return deactivaMerchant(event,context)
+        
+    except Exception as e:
+        return {"statusCode":500,"message":"Exception","info":str(e)}
+    
+    
+def registerMerchant(event,context):
+    try:
+        #Keys Validation
+        if not all (k in event for k in ("m_name","m_address","m_latitude","m_longitude","m_pincode","m_street","m_city","m_open_time","m_close_time","m_min_price","m_max_price",
+        "m_specials","m_categories","m_cusines","m_experience","m_services","m_area")):
+            return {"statusCode":200,"message":"fail","info":"Incomplete payload"}
+        
+        #Values Validation
+        store_name=str(event['m_name']).strip().lower()
+        if len(store_name)==0:
+            return {"statusCode":200,"message":"fail","info":"Merchant name is required"}
+
+        store_address=str(event['m_address']).strip().lower()
+        if len(store_address)==0:
+            return {"statusCode":200,"message":"fail","info":" store address required"}
+        store_latitude=str(event['m_latitude']).strip()
+        if len(store_latitude)==0:
+            return {"statusCode":200,"message":"fail","info":"store latitude is required"}
+        store_longitude=str(event['m_longitude']).strip()
+        if len(store_longitude)==0:
+            return {"statusCode":200,"message":"fail","info":"store longitude is required"}
+        store_pincode=int(event['m_pincode'])
+        store_street=str(event['m_street']).lower()
+        if len(store_street)==0:
+            return {"statusCode":200,"message":"fail","info":"store street is required"}
+        store_city=str(event['m_city']).lower()
+        if len(store_city)==0:
+            return {"statusCode":200,"message":"fail","info":"store city is required"}
+        store_open=str(event['m_open_time']).strip()
+        if len(store_open)==0:
+            return {"statusCode":200,"message":"fail","info":"store open is required"}
+        store_close=str(event['m_close_time']).strip()
+        if len(store_close)==0:
+            return {"statusCode":200,"message":"fail","info":"store close is required"}
+        store_min_price=int(event['m_min_price'])
+        
+        store_max_price=int(event['m_max_price'])
+        
+        store_specials=str(event['m_specials']).strip()
+        if len(store_specials)==0:
+            return {"statusCode":200,"message":"fail","info":"store specials is required"}
+        store_experience=str(event['m_experience']).strip()
+        if len(store_experience)==0:
+            return {"statusCode":200,"message":"fail","info":"store experience is required"}
+        store_categories=list(list_conversion(event['m_categories']))
+        if len(store_categories)==0:
+            return {"statusCode":200,"message":"fail","info":"store categories is required"}
+        store_cusines=list(list_conversion(event['m_cusines']))
+        if len(store_cusines)==0:
+            return {"statusCode":200,"message":"fail","info":"store cusines is required"}
+        store_services=list(list_conversion(event['m_services']))
+        if len(store_services)==0:
+            return {"statusCode":200,"message":"fail","info":"store services is required"}
+        store_area=str(event['m_area']).strip()
+        if len(store_area)==0:
+            return {"statusCode":200,"message":"fail","info":"store area is required"}
+        store_rating=0
+        store_rating_count=0
+        #Gen uniq rest ID
+        #Generate Merchant Id
+        tsObject = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+        store_id= 'M-'+str(datetime.utcnow().strftime("%Y%m%d%H%M%S"))
+        store_id=str(store_id)
+        #Generate area code
+        store_area_code=store_area+'_'+str(store_pincode)
+        #Generate city code
+        store_city_code=store_city[0:3]+'_'+store_street[0:3]
+        #standard attributes
+        store_pid=1
+        store_pid=str(store_pid)
+        store_country_code="IND"
+        store_status='active'
+        #Put in dynamo
+        generatedEvent={ "P_ID":store_pid,"M_ID":store_id,"m_name": store_name, "m_street":store_street,"m_city":store_city,"m_pincode": store_pincode,
+                 "m_country_code":store_country_code,"m_area_code":store_area_code,"m_city_code":store_city_code,"m_rating":store_rating,"m_rating_count":store_rating_count,
+                 "m_latitude": store_latitude,"m_longitude": store_longitude, "m_area":store_area,"m_status":store_status,
+                 "m_open_time": store_open,"m_close_time": store_close,"m_min_price": store_min_price,"m_max_price": store_max_price,"m_specials":store_specials,
+                 "m_categories": store_categories,"m_cusines": store_cusines,"m_experience":store_experience,"m_services": store_services,"m_address": store_address}
+        
+        merchantTable=boto3.resource('dynamodb').Table('Merchant_Table')
+        merchantresponse=merchantTable.put_item(Item=generatedEvent,ConditionExpression= 'attribute_not_exists(P_ID) and attribute_not_exists(M_ID)')
+        return {"statusCode": 200,"message":"success","info":"Restaurant Registered Sucessfully"}
+
+        
+    except Exception as e:
+        return {"statusCode":500,"message":"Exception","info":str(e)}
+
+
+def updateMerchant1(event,context):
+    try:
+        if not all (k in event for k in ("M_ID","m_open_time","m_close_time","m_min_price","m_max_price","m_specials","m_categories","m_cusines","m_services")):
+            return {"statusCode":200,"message":"fail","info":"Incomplete payload"}
+        merchantID=str(event['M_ID']).strip()
+        if len(merchantID)==0:
+            return {"statusCode":200,"message":"fail","info":"undefined error "}
+        for i in range(0,len(merchantID)):
+            if (merchantID[i] >='0' and merchantID[i]<="9") or merchantID[i]=='M' or merchantID[i]=='-':
+                pass
+            else:
+                return {"statusCode":200,"message":"fail","info":"Merchant ID is invalid"}
+        storeOpenTime=str(event['m_open_time']).strip()
+        storCloseTime=str(event['m_close_time']).strip()
+        if len(storeOpenTime)==0 or len(storCloseTime)==0:
+            return {"statusCode":200,"message":"fail","info":"store timings is required"}
+        storeMinPrice=int(event['m_min_price'])
+        storeMaxPrice=int(event['m_max_price'])
+        if (storeMinPrice<-1 and storeMinPrice>1000) or (storeMaxPrice<storeMinPrice and storeMaxPrice>10000):
+            return {"statusCode":200,"message":"fail","info":"Invalid Pricing"}
+        storeSpecials=str(event['m_specials']).strip()
+        if len(storeSpecials)==0:
+             return {"statusCode":200,"message":"fail","info":"store special is required"}
+        if isinstance(event['m_categories'],list):
+            storeCategories=event['m_categories']
+        else:
+            storeCategories=str(event['m_categories']).strip().lower()
+            if len(storeCategories)==0:
+                return {"statusCode":200,"message":"fail","info":"store categories is required"}
+            li=storeCategories.split(",")
+            storeCategories=li
+        if isinstance(event['m_cusines'],list):
+            storeCusines=event['m_cusines']
+        else:
+            storeCusines=str(event['m_cusines']).strip().lower()
+            if len(storeCusines)==0:
+                return {"statusCode":200,"message":"fail","info":"store cusines is required"}
+            li=storeCusines.split(",")
+            storeCusines=li
+        if isinstance(event['m_services'],list):
+            storeServices=event['m_services']
+        else:
+            storeServices=str(event['m_services']).strip().lower()
+            if len(storeServices)==0:
+                return {"statusCode":200,"message":"fail","info":"store services is required"}
+            li=storeServices.split(",")
+            storeServices=li
+        """return {'open time': storeOpenTime,'close time':storCloseTime,'min price':storeMinPrice,'max price':storeMaxPrice,'special':storeSpecials,
+                'service': storeServices,'categories':storeCategories,'cusines':storeCusines}"""
+        
+        update_Expression="set m_open_time =:value1, m_close_time =:value2, m_min_price=:value3, m_max_price= :value4, m_specials= :value5, m_categories= :value6, m_cusines= :value7, m_services= :value8"
+        update_ExpressionValues={':value1': storeOpenTime, ':value2': storCloseTime,':value3': storeMinPrice, ':value4': storeMaxPrice,
+                                ':value5':storeSpecials, ':value6':storeCategories,':value7':storeCusines,':value8':storeServices}
+        adminClient=boto3.resource('dynamodb').Table('Merchant_Table')
+        adminResponse=adminClient.update_item(
+            Key={"P_ID":'1',
+                "M_ID":merchantID
+            },
+            UpdateExpression=update_Expression,
+            ExpressionAttributeValues=update_ExpressionValues,
+            ReturnValues="UPDATED_NEW"
+            )
+        return {"statusCode":200,"message":"success","info":"Edited Sucessfully"}
+        
+    except Exception as e:
+        return {"statusCode":500,"message":"Exception","info":str(e)}
+        
+
+def updateMerchant2(event,context):
+    try:
+        if not all (k in event for k in ("M_ID","m_street","m_city","m_area","m_pincode","m_latitude","m_longitude","m_address")):
+            return {"statusCode":200,"message":"fail","info":"Incomplete payload"}
+        merchantID=str(event['M_ID']).strip()
+        if len(merchantID)==0:
+            return {"statusCode":200,"message":"fail","info":"undefined error "}
+        for i in range(0,len(merchantID)):
+            if (merchantID[i] >='0' and merchantID[i]<="9") or merchantID[i]=='M' or merchantID[i]=='-':
+                pass
+            else:
+                return {"statusCode":200,"message":"fail","info":"Merchant ID is invalid"}
+                
+        storeStreet=str(event['m_street']).strip().lower()
+        if len(storeStreet)==0:
+            return {"statusCode":200,"message":"fail","info":"store street is required"} 
+        storeArea=str(event['m_area']).strip().lower()
+        if len(storeArea)==0:
+            return {"statusCode":200,"message":"fail","info":"store area is required"}
+        storeCity=str(event['m_city']).strip().lower()
+        if len(storeCity)==0:
+            return {"statusCode":200,"message":"fail","info":"store city is required"}
+        storeAddress=str(event['m_address']).strip().lower()
+        if len(storeAddress)==0:
+            return {"statusCode":200,"message":"fail","info":"store address is required"}
+        storeLatitude=str(event['m_latitude']).strip()
+        if len(storeLatitude)==0:
+            return {"statusCode":200,"message":"fail","info":"store latitude is required"}
+        storeLongitude=str(event['m_longitude']).strip().lower()
+        if len(storeLongitude)==0:
+            return {"statusCode":200,"message":"fail","info":"store longitude is required"}
+        storePincode=int(event['m_pincode'])
+        update_Expression="set m_street =:value1, m_area =:value2, m_city=:value3, m_address= :value4, m_latitude= :value5, m_longitude= :value6, m_pincode= :value7 "
+        update_ExpressionValues={':value1': storeStreet, ':value2': storeArea,':value3': storeCity, ':value4': storeAddress,
+                                ':value5':storeLatitude, ':value6':storeLongitude,':value7':storePincode}
+        adminClient=boto3.resource('dynamodb').Table('Merchant_Table')
+        adminResponse=adminClient.update_item(
+            Key={"P_ID":'1',
+                "M_ID":merchantID
+            },
+            UpdateExpression=update_Expression,
+            ExpressionAttributeValues=update_ExpressionValues,
+            ReturnValues="UPDATED_NEW"
+            )
+        return {"statusCode":200,"message":"success","info":"Edited Sucessfully"}
+        
+    except Exception as e:
+        return {"statusCode":500,"message":"Exception","info":str(e)}
+        
+
+def deactivaMerchant(event,context):
+    try:
+        #review_status = new,aroved,rejected
+        #Keys Validation
+        if not all (k in event for k in ("M_ID","admin_m_status")):
+            return {"statusCode":200,"message":"fail","info":"Keys are missing "}
+        #Values Validation
+        merchantID=str(event['M_ID']).strip()
+        if len(merchantID)==0:
+            return {"statusCode":200,"message":"fail","info":"undefined error "}
+        for i in range(0,len(merchantID)):
+            if (merchantID[i] >='0' and merchantID[i]<="9") or merchantID[i]=='M' or merchantID[i]=='-':
+                pass
+            else:
+                return {"statusCode":200,"message":"fail","info":"Merchant ID is invalid"}
+        adminOperation=str(event['admin_m_status']).strip()
+        if len(adminOperation)==0:
+            return {"statusCode":200,"message":"fail!","info":"undefined error "}
+        #Gen uniq rest ID
+        if adminOperation=="active":
+            storeStatus="deactive"
+        elif adminOperation=="deactive":
+            storeStatus="active"
+        else:
+            return {"statusCode":200,"message":"fail","info":"undefined operation"}
+        adminClient=boto3.resource('dynamodb').Table('Merchant_Table')
+        adminResponse=adminClient.update_item(
+            Key={"P_ID":'1',
+                "M_ID":merchantID
+            },
+            UpdateExpression="set m_status =:tempValue",
+            ExpressionAttributeValues={
+            ":tempValue": storeStatus
+            },
+            ReturnValues="UPDATED_NEW"
+            )
+        return {"statusCode":200,"message":"success","info":"Status Changed"}
+        #Put in dynamo 
+        
+    except Exception as e:
+        return {"statusCode":500,"message":"Exception","info":str(e)}
+def list_conversion(temp):
+    temp=temp.lower()
+    li=temp.split("&")
+    cusine_code=""
+    return li

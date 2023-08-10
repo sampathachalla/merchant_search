@@ -1,0 +1,29 @@
+import json
+import boto3
+from boto3.dynamodb.conditions import Key,Attr
+
+def lambda_handler(event, context):
+    try:
+        if 'op' not in event: return {"statusCode":500,"message":"fail","Info":"operation key is missing"}
+        adminOperation=int(str(event['op']).strip())
+        if adminOperation==0:
+            return getCCAdminsList(event,context)
+        else:
+           return {"statusCode":500,"Message":"fail","Info":"undefined operation"} 
+    except Exception as e:
+        return {"statusCode":500,"message":"Exception","info":str(e)}
+    
+
+def getCCAdminsList(event,context):
+    try:
+        adminClient=boto3.resource('dynamodb').Table('Merchant_Users')
+        adminResponse=adminClient.query(
+            KeyConditionExpression=Key('P_id').eq('P1')
+            )
+        if adminResponse['Count']>0:
+            adminList=adminResponse['Items']
+            return {"statusCode":200,"message":"success","info":"Admins available",'dataJ':adminList}
+        return {"statusCode":200,"message":"fail","info":"No admins available"}
+    except Exception as e:
+        return {"statusCode":500,"message":"fail","info":"Exception"}
+        
